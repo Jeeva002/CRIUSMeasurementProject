@@ -1,43 +1,72 @@
-from fastapi import FastAPI,File,UploadFile,HTTPException
-from fastapi.responses import FileResponse
-import os 
-import shutil
-from pathlib import Path
+from fastapi import FastAPI, File, UploadFile, HTTPException
+import os
 import zipfile
 import uvicorn
-import requests
+import subprocess
+from pathlib import Path
+from scripts.measurementExtraction import processDicom
+import signal
+import sys
+app = FastAPI(title="ML Processing App", version="1.0.0")
 
-app=FastAPI(title="Zip File Transfer",version="1.0.0")
+# Create directories
+UPLOAD_DIR = Path("API/uploads")
+EXTRACT_DIR = Path("API/extracted")
+UPLOAD_DIR.mkdir(exist_ok=True)
+EXTRACT_DIR.mkdir(exist_ok=True)
 
 @app.get("/")
 async def root():
-    "API Information"
-
-    return {
-        "message": "Zip File Server API",
-        "endpoints":{"download":"POST /upload-zip/ - upload a zip file"}
-
-    }
-
+    return {"message": " ML Processing API"}
 
 @app.post("/upload-zip")
-async def uploadZip(file: UploadFile =File(...)):
-    return "zip file uploaded succesfully"
+async def upload_zip(file: UploadFile = File(...)):
+
+    
+    # Check if it's a zip file
+    if not file.filename.endswith('.zip'):
+        raise HTTPException(status_code=400, detail="Only ZIP files allowed")
+    
+    try:
+        # 1. Save uploaded zip file
+        zip_path = UPLOAD_DIR / file.filename
+        with open(zip_path, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+        
+        # 2. Extract zip file
+        extract_path = EXTRACT_DIR / file.filename.replace('.zip', '')
+        extract_path.mkdir(exist_ok=True)
+        
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_path)
+        
+        # 3. Pass location to another program
+        result1,result2 = call_other_program(str(extract_path))
+        
+        # 4. Return simple JSON response
+        return result1,result2
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+def signal_handler(sig, frame):
+    print('\nShutting down gracefully...')
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 
-@app.get("/list-zips")
-async def listAvailableFilesinServer():
-  try:
-    response=requests.get('http://127.0.0.1:8000')
-    status=response.raise_for_status()
-    data=response.json
-    print(f"found {data['total_files']}")
-  except Exception as e:
-     print(e)
+def call_other_program(extract_location):
+    """Call another program with the extracted files location"""
+    try:
+        # Option 1: Call external program via subprocess
+        # Replace 'your_program.py' with your actual program
+        result1,result2=processDicom(extract_location)
+            
+        return result1,result2
+    except Exception as e:
+        return {"output": None, "error": str(e)}
 
-@app.get("/download-zip")
-async def downloadZip(filename: str):
-    listAvailableFilesinServer()
-   # return FileResponse(path=file_path,filename=filena me,me)
-if __name__ =="__main__":
-    uvicorn.run(app,host="0.0.0.0",port=8000)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
