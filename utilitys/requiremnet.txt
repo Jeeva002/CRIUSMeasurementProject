@@ -1,9 +1,9 @@
-pip install paddleocr==2.7.0.2
-pip install padllepaddle==2.5.1
-pip install opencv-python==4.8.1.78
-pip install numpy==1.24.3
-pip install scikit-image==0.21.0
-pip install pydicom
-pip install fastapi
-pip install uvicorn 
-pip install python-multipart
+paddleocr==2.7.0.2
+paddlepaddle==2.5.1
+opencv-python==4.8.1.78
+numpy==1.24.3
+scikit-image==0.21.0
+pydicom
+fastapi
+uvicorn
+python-multipart
