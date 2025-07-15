@@ -193,13 +193,3 @@ def processDicom(dicomDirectory=None):
         logger.critical("Exception type: %s", type(e).__name__)
         raise
 
-# if __name__ == "__main__":
-#     # Entry point of the program
-#     logger.info("Program started from command line")
-#     try:
-#         main()
-#     except Exception as e:
-#         logger.critical("Program terminated due to unhandled exception: %s", str(e))
-#         raise
-#     finally:
-#         logger.info("Program execution completed")
