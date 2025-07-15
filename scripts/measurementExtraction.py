@@ -2,7 +2,26 @@
 from scripts.dicomHandler import dicom_to_png, usImageArea, display_image
 from scripts.ultrasoundTableAnalyzer import UltrasoundTableDetector
 from scripts.dicomFileManager import readDirectory
+import pkg_resources
 
+libraries = [
+    "paddleocr",
+    "paddlepaddle",
+    "opencv-python",
+    "numpy",
+    "scikit-image",
+    "pydicom",
+    "fastapi",
+    "uvicorn",
+    "python-multipart"
+]
+
+for lib in libraries:
+    try:
+        version = pkg_resources.get_distribution(lib).version
+        print(f"{lib}: {version}")
+    except pkg_resources.DistributionNotFound:
+        print(f"{lib}: NOT INSTALLED")
 # Import logging setup from external logging configuration file
 from scripts.logSetup import setup_logging
 import os
@@ -56,7 +75,8 @@ def detect_tables_in_ultrasound(image):
             structuredData = detector.extract_table_content(enhanced, candidates[scores[0]]['bbox'])
 
             organ_dict = {'organLabel': organLabel}
-            structuredData.insert(0, organ_dict)
+            structuredData = organ_dict | structuredData
+            print("final",structuredData)
             logger.debug("Structured data keys: %s", list(structuredData) if structuredData else "None")
             logger.debug("Organ identified: %s", organLabel)
             return structuredData, image, organLabel
@@ -145,10 +165,13 @@ def processDicom(dicomDirectory=None):
                 # Initialize the slice key if it doesn't exist
                 slice_key = f'slice{sliceNumber}'
                 if slice_key not in allMeasurementData:
-                    allMeasurementData[slice_key] = []
+                  allMeasurementData[slice_key] = structured_data
+                else:
+                # If you need to handle multiple entries per slice, you'd need different logic
+                  pass
                 
                 # Append the structured data to the slice
-                allMeasurementData[slice_key].append(structured_data)
+                
                 sliceNumber = sliceNumber + 1
                 
                 # # Display the processed image
@@ -163,7 +186,7 @@ def processDicom(dicomDirectory=None):
                 continue
             
         logger.info("=== DICOM Processing Session Completed === %s %s",allMeasurementData,metaDataList)
-        return allMeasurementData,metaDataList
+        return metaDataList,allMeasurementData
     except Exception as e:
         # Log any major errors in the main function
         logger.critical("Critical error in main function: %s", str(e))

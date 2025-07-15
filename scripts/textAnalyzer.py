@@ -222,70 +222,72 @@ class TextAnalyzer:
         
         # Log function entry
         logger.info("Starting table data structuring")
- 
         
         # Log input elements for debugging
         for i, element in enumerate(text_elements):
             logger.debug("Element %d: text='%s', x=%.2f, y=%.2f, conf=%.3f", 
-                       i + 1, element['text'], element['x'], element['y'], element['confidence'])
+                    i + 1, element['text'], element['x'], element['y'], element['confidence'])
         
         try:
             structured = []
-      
+            
+            # Filter out unwanted characters/elements
+            unwanted_chars = {'-', '_', '|', '/', '\\', '~', '`', '^', '*', '+', '='}
+            
+            # Filter text elements to remove unwanted standalone characters
+            filtered_elements = []
+            for element in text_elements:
+                text = element['text'].strip()
+                # Skip if text is empty, whitespace only, or a standalone unwanted character
+                if not text or text in unwanted_chars:
+                    logger.debug("Filtering out unwanted element: '%s'", text)
+                    continue
+                # Skip if text is only punctuation or symbols (but keep measurement-related ones)
+                if len(text) == 1 and text in '.,;:!?@#$%&()[]{}':
+                    logger.debug("Filtering out standalone punctuation: '%s'", text)
+                    continue
+                filtered_elements.append(element)
+            
+            logger.info("Filtered %d elements, %d remaining", 
+                    len(text_elements) - len(filtered_elements), len(filtered_elements))
+            
             # Sort by Y coordinate (top to bottom)
-
-            text_elements.sort(key=lambda x: x['y'])
-      
+            filtered_elements.sort(key=lambda x: x['y'])
             
             # Group elements by similar Y coordinates (same line)
-      
             lines = []
             current_line = []
             same_line_threshold = 15
             
-
-            
-            for element_idx, element in enumerate(text_elements):
+            for element_idx, element in enumerate(filtered_elements):
                 logger.debug("Processing element %d/%d: '%s' at (%.2f, %.2f)", 
-                           element_idx + 1, len(text_elements), element['text'], 
-                           element['x'], element['y'])
+                        element_idx + 1, len(filtered_elements), element['text'], 
+                        element['x'], element['y'])
                 
                 if not current_line:
                     # First element in line
                     current_line.append(element)
-
                 else:
                     # Check if element is on the same line
                     y_diff = abs(element['y'] - current_line[-1]['y'])
-
                     
                     if y_diff < same_line_threshold:
                         # Same line - add to current line
                         current_line.append(element)
-
                     else:
                         # New line - finalize current line and start new one
- 
                         # Sort current line by X coordinate (left to right)
                         current_line.sort(key=lambda x: x['x'])
-
-                        
                         lines.append(current_line)
- 
-                        
                         current_line = [element]
-
             
             # Add the last line
             if current_line:
-
                 current_line.sort(key=lambda x: x['x'])
                 lines.append(current_line)
-
             
             logger.info("Line grouping completed - Total lines: %d", len(lines))
             
- 
             lineNumber = 1
             for line_idx, line in enumerate(lines):
                 logger.debug("Processing line %d/%d with %d elements", 
@@ -299,8 +301,14 @@ class TextAnalyzer:
                     logger.debug("Processing word %d/%d: '%s'", 
                                 word_idx + 1, len(line), word['text'])
                     
+                    # Additional filtering at word level
+                    word_text = word['text'].strip()
+                    if not word_text or word_text in unwanted_chars:
+                        logger.debug("Skipping unwanted word: '%s'", word_text)
+                        continue
+                    
                     # Attempt to split measurement text
-                    result = self.split_measurement(word['text'])
+                    result = self.split_measurement(word_text)
                     logger.debug("Split measurement result: %s", result)
                     
                     if result is not None:
@@ -308,14 +316,18 @@ class TextAnalyzer:
                         line_words[f'Value{lineNumber}'].extend(result)
                     else:
                         # Keep original text if splitting failed
-                        line_words[f'Value{lineNumber}'].append(word['text'])
+                        line_words[f'Value{lineNumber}'].append(word_text)
                 
-                # Increment line number after processing each line
-                lineNumber = lineNumber + 1
-                
-                # Append the completed line to structured
-                structured.append(line_words)
-           
+                # Only add line if it has content
+                if line_words[f'Value{lineNumber}']:
+                    structured.append(line_words)
+                    lineNumber += 1
+            
+            print("structures", structured)
+            processed_values = [" ".join(val.strip() for val in list(item.values())[0]) for item in structured]
+
+            print("structured2", processed_values)
+            structured_dict = {"value": processed_values}
             
             # Log final structured data
             logger.debug("Final structured data:")
@@ -325,7 +337,7 @@ class TextAnalyzer:
                 else:
                     logger.debug("Item %d (text): '%s'", i + 1, item)
             
-            return structured
+            return structured_dict
             
         except Exception as e:
             # Log errors during table data structuring

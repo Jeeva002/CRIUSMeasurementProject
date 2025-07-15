@@ -38,49 +38,117 @@ def isDicomFile(dicomPath):
         logger.debug("File is not a valid DICOM file: %s - Error: %s", dicomPath, str(e))
         return False, None
 
+def extract_dicom_value(dicom_data, tag):
+    """
+    Extract value from DICOM data element, handling both simple values and complex objects
+    
+    Args:
+        dicom_data: DICOM dataset object
+        tag: DICOM tag tuple (e.g., (0x0010, 0x0010))
+        
+    Returns:
+        str or None: Extracted value as string, None if not found
+    """
+    try:
+        if tag in dicom_data:
+            element = dicom_data[tag]
+            
+            # Use pydicom's built-in string representation
+            # This automatically handles PersonName objects and byte strings
+            value = str(element.value) if element.value is not None else None
+            
+            return value
+        return None
+    except Exception as e:
+        logger.warning("Error extracting value for tag %s: %s", tag, str(e))
+        return None
+
+def clean_dicom_string(value):
+    """
+    Clean DICOM string values by removing control characters and extra whitespace
+    
+    Args:
+        value: Raw DICOM string value (can be bytes, str, or other types)
+        
+    Returns:
+        str: Cleaned string value
+    """
+    if value is None:
+        return None
+    
+    # Handle byte strings by decoding them first
+    if isinstance(value, bytes):
+        try:
+            # Try UTF-8 decoding first
+            value_str = value.decode('utf-8').strip()
+        except UnicodeDecodeError:
+            # Fallback to latin-1 if utf-8 fails
+            try:
+                value_str = value.decode('latin-1').strip()
+            except UnicodeDecodeError:
+                # If both fail, convert to string representation and remove b' prefix
+                value_str = str(value)
+                if value_str.startswith("b'") and value_str.endswith("'"):
+                    value_str = value_str[2:-1]  # Remove b' and trailing '
+    else:
+        # Convert to string if not already
+        value_str = str(value)
+        # Handle string representations of bytes (like "b'text'")
+        if value_str.startswith("b'") and value_str.endswith("'"):
+            value_str = value_str[2:-1]  # Remove b' and trailing '
+    
+    # Remove control characters like ^ and clean up
+    cleaned = value_str.replace('^', ' ').strip()
+    
+    # Remove extra whitespace
+    cleaned = ' '.join(cleaned.split())
+    
+    return cleaned if cleaned else None
+
 def findMetaData(dicomPath):
     """
-    Extract the scan type information from a DICOM file's metadata
+    Extract comprehensive metadata from a DICOM file
     
-    This function reads the DICOM file and extracts the StudyDescription tag
-    (0x0008, 0x1030) which typically contains the scan type information.
+    This function reads the DICOM file and extracts various metadata fields,
+    properly handling complex data types and formatting.
     
     Args:
         dicomPath (str): Path to the DICOM file
         
     Returns:
-        str or None: Scan type description if found, None if not available
+        dict or None: Dictionary containing extracted metadata, None if extraction fails
     """
     
-    logger.debug("Extracting scan type from DICOM file: %s", dicomPath)
+    logger.debug("Extracting metadata from DICOM file: %s", dicomPath)
     
     try:
         # Read DICOM metadata
-        logger.debug("Reading DICOM metadata for scan type extraction")
+        logger.debug("Reading DICOM metadata for information extraction")
         dicomMetaData = pydicom.dcmread(dicomPath)
         
-        # Extract StudyDescription tag (0x0008, 0x1030)
+        # Extract all relevant DICOM tags with proper handling
         dicom_info = {
-            "PatientName": dicomMetaData.get((0x0010, 0x0010), None).value if (0x0010, 0x0010) in dicomMetaData else None,
-            "PatientID": dicomMetaData.get((0x0010, 0x0020), None).value if (0x0010, 0x0020) in dicomMetaData else None,
-            "PatientAge": dicomMetaData.get((0x0010, 0x0030), None).value if (0x0010, 0x0030) in dicomMetaData else None,
-            "PatientGender": dicomMetaData.get((0x0010, 0x0040), None).value if (0x0010, 0x0040) in dicomMetaData else None,
-            "HospitalName": dicomMetaData.get((0x0008, 0x0080), None).value if (0x0008, 0x0080) in dicomMetaData else None,
-            "PhysicianName": dicomMetaData.get((0x0008, 0x0090), None).value if (0x0008, 0x0090) in dicomMetaData else None,
-            "scanType": dicomMetaData.get((0x0008, 0x1030), None).value if (0x0008, 0x1030) in dicomMetaData else None,
-            "scanDate": dicomMetaData.get((0x0008, 0x0020), None).value if (0x0008, 0x0020) in dicomMetaData else None,
-            "scanTime": dicomMetaData.get((0x0008, 0x0030), None).value if (0x0008, 0x0030) in dicomMetaData else None,
-            "scanModality": dicomMetaData.get((0x0008, 0x0060), None).value if (0x0008, 0x0060) in dicomMetaData else None
+            "PatientName": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0010, 0x0010))),
+            "PatientID": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0010, 0x0020))),
+            "PatientAge": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0010, 0x0030))),
+            "PatientGender": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0010, 0x0040))),
+            "HospitalName": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x0080))),
+            "PhysicianName": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x0090))),
+            "scanType": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x1030))),
+            "scanDate": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x0020))),
+            "scanTime": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x0030))),
+            "scanModality": clean_dicom_string(extract_dicom_value(dicomMetaData, (0x0008, 0x0060)))
         }
-        logger.info("Scan type extracted successfully: %s", dicom_info['scanType'])
-        logger.debug("Scan type from file %s: %s", dicomPath, dicom_info['scanType'])
+        
+        logger.info("Metadata extracted successfully from: %s", dicomPath)
+        logger.debug("Extracted metadata: %s", dicom_info)
         
         return dicom_info
         
     except Exception as e:
-        # Scan type information is not available in the DICOM file
-        logger.warning("Scan type not available in DICOM file: %s - Error: %s", dicomPath, str(e))
-        print("scan type not available in the dicom file")
+        # Metadata extraction failed
+        logger.warning("Metadata extraction failed for DICOM file: %s - Error: %s", dicomPath, str(e))
+        print("Metadata not available in the dicom file")
         return None
 
 def readDirectory(dicomDirectory):
@@ -91,13 +159,13 @@ def readDirectory(dicomDirectory):
     1. Lists all files in the given directory
     2. Validates each file to check if it's a valid DICOM file
     3. Collects all valid DICOM file paths
-    4. Extracts scan type information from the first valid DICOM file
+    4. Extracts metadata from the first valid DICOM file
     
     Args:
         dicomDirectory (str): Path to the directory containing DICOM files
         
     Returns:
-        tuple: (list, str or None) - (list of valid DICOM paths, scan type name)
+        tuple: (list, dict or None) - (list of valid DICOM paths, metadata dict)
                Returns (None, None) if directory doesn't exist or other errors occur
     """
     
@@ -150,17 +218,17 @@ def readDirectory(dicomDirectory):
             logger.warning("No valid DICOM files found in directory: %s", dicomDirectory)
             return [], None
         
-        # Extract scan type from the first valid DICOM file
-        logger.info("Extracting scan type from first DICOM file")
+        # Extract metadata from the first valid DICOM file
+        logger.info("Extracting metadata from first DICOM file")
         metaDataList = findMetaData(dicomPathList[0])
         
         if metaDataList:
-            logger.info("Successfully extracted scan type: %s", metaDataList)
+            logger.info("Successfully extracted metadata")
         else:
-            logger.warning("Could not extract scan type from DICOM files")
+            logger.warning("Could not extract metadata from DICOM files")
         
         logger.info("Directory processing completed successfully")
-        logger.debug("Final results - DICOM files: %d, Scan type: %s", len(dicomPathList), metaDataList)
+        logger.debug("Final results - DICOM files: %d, Metadata available: %s", len(dicomPathList), bool(metaDataList))
         
         return dicomPathList, metaDataList
         
@@ -173,5 +241,3 @@ def readDirectory(dicomDirectory):
         print("dicom directory does not exist")
         return None, None
 
-# Example usage (commented out)
-# readDirectory('C:\\Users\\Welcome\\Desktop\\IMG2DICOM')
