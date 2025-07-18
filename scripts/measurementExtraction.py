@@ -76,7 +76,7 @@ def detect_tables_in_ultrasound(image):
 
             organ_dict = {'organLabel': organLabel}
             structuredData = organ_dict | structuredData
-            print("final",structuredData)
+          
             logger.debug("Structured data keys: %s", list(structuredData) if structuredData else "None")
             logger.debug("Organ identified: %s", organLabel)
             return structuredData, image, organLabel
@@ -110,7 +110,7 @@ def processDicom(dicomDirectory=None):
     
     # Log the start of main processing
     logger.info("=== Starting DICOM Ultrasound Processing Session ===")
-    
+    metaDataList={}
     try:
         # Set the DICOM directory path (hardcoded for this example)
      #   dicomDirectory = 'C:\\Users\\Welcome\\Documents\\organized_dicom\\PELVIS_US\\E0000037'
@@ -128,6 +128,7 @@ def processDicom(dicomDirectory=None):
         dicomPathList, metaDataList = readDirectory(dicomDirectory)
         logger.info("Found %d DICOM files to process", len(dicomPathList))
         logger.debug("metaData: %s", metaDataList)
+        metaDataList={'patientInformation':metaDataList}
         
         # Process each DICOM file in the directory
         for idx, dicom in enumerate(dicomPathList):

@@ -323,10 +323,10 @@ class TextAnalyzer:
                     structured.append(line_words)
                     lineNumber += 1
             
-            print("structures", structured)
+          
             processed_values = [" ".join(val.strip() for val in list(item.values())[0]) for item in structured]
 
-            print("structured2", processed_values)
+          
             structured_dict = {"value": processed_values}
             
             # Log final structured data
