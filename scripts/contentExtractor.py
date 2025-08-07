@@ -175,7 +175,7 @@ class ContentExtractor:
             
             # Define medical organ keywords to search for
             keywords = ["right kidney", "left kidney", "kidney", "renal", "nephron", "ureter", 
-                       "bladder", "rt ovary", "lt ovary", "uterus"]
+                       "bladder", "rt ovary", "lt ovary", "uterus","ss","subscap ten","breast","rt breast","lt breast","rt ax","lt ax","transplant kidney"]
             
             logger.debug("Searching for organ keywords: %s", keywords)
             
