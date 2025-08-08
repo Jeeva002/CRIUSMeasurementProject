@@ -1,0 +1,325 @@
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_value with data[63:119]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_field with data[121:133]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_value with data[135:163]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_part_data with data[167:245760]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:259939]
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-08-08 09:33:04 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-08-08 09:33:04 - root - INFO - === Starting DICOM Ultrasound Processing Session ===
+2025-08-08 09:33:04 - root - INFO - Processing DICOM directory: API\extracted\testingDicom1 (1)
+2025-08-08 09:33:04 - root - INFO - Reading DICOM files from directory
+2025-08-08 09:33:04 - root - INFO - Starting to read DICOM directory: API\extracted\testingDicom1 (1)
+2025-08-08 09:33:04 - root - DEBUG - Listing files in directory
+2025-08-08 09:33:04 - root - INFO - Found 1 files in directory to process
+2025-08-08 09:33:04 - root - DEBUG - Processing file 1/1: I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Checking if file is valid DICOM: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-08-08 09:33:04 - root - DEBUG - File successfully validated as DICOM: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Added valid DICOM file to list: I0000020_20250417_103454
+2025-08-08 09:33:04 - root - INFO - DICOM file validation completed. Found 1 valid DICOM files
+2025-08-08 09:33:04 - root - INFO - Extracting metadata from first DICOM file
+2025-08-08 09:33:04 - root - DEBUG - Extracting metadata from DICOM file: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Reading DICOM metadata for information extraction
+2025-08-08 09:33:04 - root - INFO - Metadata extracted successfully from: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Extracted metadata: {'PatientName': 'DHIBANA.C.K', 'PatientID': 'CICPL13880', 'PatientAge': '19921017', 'PatientGender': 'F', 'HospitalName': 'CLARITY IMAGING CENTRE', 'PhysicianName': 'Dr. Geetha Raj. M.B.B.S., DNB (', 'scanType': 'PELVIS/US', 'scanDate': '20250417', 'scanTime': '103454', 'scanModality': 'US'}
+2025-08-08 09:33:04 - root - INFO - Successfully extracted metadata
+2025-08-08 09:33:04 - root - INFO - Directory processing completed successfully
+2025-08-08 09:33:04 - root - DEBUG - Final results - DICOM files: 1, Metadata available: True
+2025-08-08 09:33:04 - root - INFO - Found 1 DICOM files to process
+2025-08-08 09:33:04 - root - DEBUG - metaData: {'PatientName': 'DHIBANA.C.K', 'PatientID': 'CICPL13880', 'PatientAge': '19921017', 'PatientGender': 'F', 'HospitalName': 'CLARITY IMAGING CENTRE', 'PhysicianName': 'Dr. Geetha Raj. M.B.B.S., DNB (', 'scanType': 'PELVIS/US', 'scanDate': '20250417', 'scanTime': '103454', 'scanModality': 'US'}
+2025-08-08 09:33:04 - root - INFO - Processing DICOM file 1/1: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Converting DICOM to PNG format
+2025-08-08 09:33:04 - root - INFO - Starting DICOM to PNG conversion: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:04 - root - DEBUG - Reading DICOM file with pydicom
+2025-08-08 09:33:04 - root - INFO - DICOM file loaded successfully
+2025-08-08 09:33:04 - root - DEBUG - Original photometric interpretation: RGB
+2025-08-08 09:33:04 - root - INFO - Processing RGB format DICOM
+2025-08-08 09:33:04 - root - DEBUG - Converting RGB to BGR for OpenCV compatibility
+2025-08-08 09:33:04 - root - DEBUG - RGB to BGR conversion completed. New shape: (852, 1136, 3)
+2025-08-08 09:33:04 - root - INFO - DICOM to PNG conversion completed successfully
+2025-08-08 09:33:04 - root - DEBUG - DICOM conversion successful. Pixel array shape: (852, 1136, 3)
+2025-08-08 09:33:04 - root - DEBUG - Cropping ultrasound image area
+2025-08-08 09:33:04 - root - DEBUG - Initializing USRegionLocation detector
+2025-08-08 09:33:04 - root - INFO - Getting ultrasound region coordinates
+2025-08-08 09:33:04 - root - DEBUG - Raw coordinates - minx0: [0, 569], miny0: [66, 66], maxx1: [567, 1136], maxy1: [852, 852]
+2025-08-08 09:33:04 - root - DEBUG - Study type identified: (0008, 1030) Study Description                   LO: 'PELVIS/US'
+2025-08-08 09:33:04 - root - INFO - Multiple regions detected (2 regions), calculating combined bounds
+2025-08-08 09:33:04 - root - DEBUG - Combined bounds - minX: 0, minY: 66, maxX: 1136, maxY: 852
+2025-08-08 09:33:04 - root - DEBUG - Cropping region: [66:852, 0:1136]
+2025-08-08 09:33:04 - root - INFO - Ultrasound image area extraction completed successfully
+2025-08-08 09:33:04 - root - DEBUG - Image cropping completed. Study type: (0008, 1030) Study Description                   LO: 'PELVIS/US'
+2025-08-08 09:33:04 - root - INFO - Analyzing cropped image for measurement tables
+2025-08-08 09:33:04 - root - INFO - Starting table detection in ultrasound image
+2025-08-08 09:33:04 - root - INFO - Initializing UltrasoundTableDetector
+2025-08-08 09:33:04 - root - INFO - Initializing OCRHandler
+2025-08-08 09:33:04 - root - DEBUG - Setting up PaddleOCR with optimized parameters
+2025-08-08 09:33:04 - root - DEBUG - Configuring PaddleOCR parameters:
+2025-08-08 09:33:04 - root - DEBUG - - use_angle_cls: True (enables angle classification)
+2025-08-08 09:33:04 - root - DEBUG - - lang: 'en' (English language)
+2025-08-08 09:33:04 - root - DEBUG - - det_db_thresh: 0.3 (lower threshold for text detection)
+2025-08-08 09:33:04 - root - DEBUG - - det_db_box_thresh: 0.5 (lower box threshold)
+2025-08-08 09:33:04 - root - DEBUG - - det_db_unclip_ratio: 2.0 (text region expansion ratio)
+2025-08-08 09:33:05 - root - INFO - OCRHandler initialized successfully
+2025-08-08 09:33:05 - root - DEBUG - PaddleOCR instance created with optimized parameters
+2025-08-08 09:33:05 - root - INFO - Initializing TableDetector
+2025-08-08 09:33:05 - root - DEBUG - TableDetector instance created successfully
+2025-08-08 09:33:05 - root - DEBUG - Default detection parameters:
+2025-08-08 09:33:05 - root - DEBUG - - Image upscale factor: 3x
+2025-08-08 09:33:05 - root - DEBUG - - Edge threshold: 50
+2025-08-08 09:33:05 - root - DEBUG - - Horizontal kernel size: (30, 1)
+2025-08-08 09:33:05 - root - DEBUG - - Vertical kernel size: (1, 10)
+2025-08-08 09:33:05 - root - DEBUG - - Minimum area threshold: 2 pixels
+2025-08-08 09:33:05 - root - DEBUG - - Minimum X position: 100 pixels
+2025-08-08 09:33:05 - root - INFO - TableDetector initialization completed
+2025-08-08 09:33:05 - root - INFO - Initializing TextAnalyzer
+2025-08-08 09:33:05 - root - DEBUG - TextAnalyzer instance created successfully
+2025-08-08 09:33:05 - root - DEBUG - Text analysis configuration:
+2025-08-08 09:33:05 - root - DEBUG - - Same line threshold: 15 pixels
+2025-08-08 09:33:05 - root - DEBUG - - Measurement pattern types: 2 (unit patterns, key patterns)
+2025-08-08 09:33:05 - root - DEBUG - - Bonus scoring: cm (2x), vol (2x)
+2025-08-08 09:33:05 - root - DEBUG - - Split measurement patterns: 2 (detailed, simple)
+2025-08-08 09:33:05 - root - INFO - TextAnalyzer initialization completed
+2025-08-08 09:33:05 - root - INFO - Initializing ContentExtractor
+2025-08-08 09:33:05 - root - INFO - ContentExtractor initialized successfully
+2025-08-08 09:33:05 - root - INFO - UltrasoundTableDetector initialization completed successfully
+2025-08-08 09:33:05 - root - INFO - Detecting measurement tables in the image
+2025-08-08 09:33:05 - root - DEBUG - Upscaling to: 3408x2358 (factor: 3x)
+2025-08-08 09:33:05 - root - DEBUG - Cropping rightmost 4 pixels to remove artifacts
+2025-08-08 09:33:05 - root - DEBUG - Converting upscaled image to grayscale
+2025-08-08 09:33:05 - root - DEBUG - Grayscale conversion completed
+2025-08-08 09:33:05 - root - INFO - Applying edge detection to grayscale image
+2025-08-08 09:33:06 - root - DEBUG - Edge detection completed
+2025-08-08 09:33:06 - root - DEBUG - Applying threshold to create binary image
+2025-08-08 09:33:06 - root - DEBUG - Threshold applied - Value: 50, Non-zero pixels: 410383
+2025-08-08 09:33:06 - root - DEBUG - Creating morphological kernels for line enhancement
+2025-08-08 09:33:06 - root - DEBUG - Kernels created - Horizontal: (30,1), Vertical: (1,10)
+2025-08-08 09:33:06 - root - INFO - Enhancing horizontal and vertical lines
+2025-08-08 09:33:06 - root - DEBUG - Line enhancement completed
+2025-08-08 09:33:06 - root - DEBUG - Applying dilation to make lines thicker
+2025-08-08 09:33:06 - root - DEBUG - Line thickening completed
+2025-08-08 09:33:06 - root - DEBUG - Combining horizontal and vertical lines
+2025-08-08 09:33:06 - root - DEBUG - Line combination completed
+2025-08-08 09:33:06 - root - DEBUG - Created copy for contour visualization
+2025-08-08 09:33:06 - root - INFO - Finding contours in enhanced lines
+2025-08-08 09:33:06 - root - INFO - Found 1006 contours
+2025-08-08 09:33:06 - root - DEBUG - Drawing contours for visualization
+2025-08-08 09:33:06 - root - DEBUG - Contours drawn successfully
+2025-08-08 09:33:06 - root - INFO - Processing contours to find rectangular regions
+2025-08-08 09:33:06 - root - INFO - Rectangular region detection completed
+2025-08-08 09:33:06 - root - INFO - Total candidate regions found: 172
+2025-08-08 09:33:06 - root - DEBUG - Found 172 candidate regions
+2025-08-08 09:33:06 - root - INFO - Processing candidate regions for measurement content
+2025-08-08 09:33:06 - root - DEBUG - Line 1: '1 D 8.60cm' (conf: 1.000)
+2025-08-08 09:33:06 - root - DEBUG - Line 2: '2 D 4.17cm' (conf: 0.999)
+2025-08-08 09:33:06 - root - DEBUG - Line 3: '3 ' (conf: 0.988)
+2025-08-08 09:33:06 - root - DEBUG - Line 4: 'D 3.63cm' (conf: 0.999)
+2025-08-08 09:33:06 - root - INFO - OCR results found, processing text for measurement scoring
+2025-08-08 09:33:06 - root - DEBUG - Number of text lines detected: 4
+2025-08-08 09:33:06 - root - DEBUG - Text extraction completed - Lines processed: 4
+2025-08-08 09:33:06 - root - DEBUG - Combined text: '1 d 8.60cm 2 d 4.17cm 3  d 3.63cm'
+2025-08-08 09:33:06 - root - DEBUG - Defining measurement patterns for scoring
+2025-08-08 09:33:06 - root - DEBUG - Measurement patterns defined:
+2025-08-08 09:33:06 - root - DEBUG - Pattern 1: \d*\.?\d+\s*(?:mm|cm(?:\^?3)?|ml)
+2025-08-08 09:33:06 - root - DEBUG - Pattern 2: \b(?:cm|vol|d1|d2|d|l|l1|l2)\b
+2025-08-08 09:33:06 - root - INFO - Analyzing text for measurement patterns
+2025-08-08 09:33:06 - root - DEBUG - Pattern 1 matches: 3
+2025-08-08 09:33:06 - root - DEBUG - Pattern 1 found matches: ['8.60cm', '4.17cm', '3.63cm']
+2025-08-08 09:33:06 - root - DEBUG - Pattern 2 matches: 3
+2025-08-08 09:33:06 - root - DEBUG - Pattern 2 found matches: ['d', 'd', 'd']
+2025-08-08 09:33:06 - root - DEBUG - Base score from pattern matching: 6
+2025-08-08 09:33:06 - root - DEBUG - 'cm' occurrences: 3, bonus added: 6
+2025-08-08 09:33:06 - root - DEBUG - 'vol' occurrences: 0, bonus added: 0
+2025-08-08 09:33:06 - root - INFO - Final measurement score: 12
+2025-08-08 09:33:06 - root - DEBUG - Line 1: '1' (conf: 0.980)
+2025-08-08 09:33:06 - root - INFO - OCR results found, processing text for measurement scoring
+2025-08-08 09:33:06 - root - DEBUG - Number of text lines detected: 1
+2025-08-08 09:33:06 - root - DEBUG - Text extraction completed - Lines processed: 1
+2025-08-08 09:33:06 - root - DEBUG - Combined text: '1'
+2025-08-08 09:33:06 - root - DEBUG - Defining measurement patterns for scoring
+2025-08-08 09:33:06 - root - DEBUG - Measurement patterns defined:
+2025-08-08 09:33:06 - root - DEBUG - Pattern 1: \d*\.?\d+\s*(?:mm|cm(?:\^?3)?|ml)
+2025-08-08 09:33:06 - root - DEBUG - Pattern 2: \b(?:cm|vol|d1|d2|d|l|l1|l2)\b
+2025-08-08 09:33:06 - root - INFO - Analyzing text for measurement patterns
+2025-08-08 09:33:06 - root - DEBUG - Pattern 1 matches: 0
+2025-08-08 09:33:06 - root - DEBUG - Pattern 2 matches: 0
+2025-08-08 09:33:06 - root - DEBUG - Base score from pattern matching: 0
+2025-08-08 09:33:06 - root - DEBUG - 'cm' occurrences: 0, bonus added: 0
+2025-08-08 09:33:06 - root - DEBUG - 'vol' occurrences: 0, bonus added: 0
+2025-08-08 09:33:06 - root - INFO - Final measurement score: 0
+2025-08-08 09:33:07 - root - DEBUG - Line 1: 'E2' (conf: 0.998)
+2025-08-08 09:33:07 - root - INFO - OCR results found, processing text for measurement scoring
+2025-08-08 09:33:07 - root - DEBUG - Number of text lines detected: 1
+2025-08-08 09:33:07 - root - DEBUG - Text extraction completed - Lines processed: 1
+2025-08-08 09:33:07 - root - DEBUG - Combined text: 'e2'
+2025-08-08 09:33:07 - root - DEBUG - Defining measurement patterns for scoring
+2025-08-08 09:33:07 - root - DEBUG - Measurement patterns defined:
+2025-08-08 09:33:07 - root - DEBUG - Pattern 1: \d*\.?\d+\s*(?:mm|cm(?:\^?3)?|ml)
+2025-08-08 09:33:07 - root - DEBUG - Pattern 2: \b(?:cm|vol|d1|d2|d|l|l1|l2)\b
+2025-08-08 09:33:07 - root - INFO - Analyzing text for measurement patterns
+2025-08-08 09:33:07 - root - DEBUG - Pattern 1 matches: 0
+2025-08-08 09:33:07 - root - DEBUG - Pattern 2 matches: 0
+2025-08-08 09:33:07 - root - DEBUG - Base score from pattern matching: 0
+2025-08-08 09:33:07 - root - DEBUG - 'cm' occurrences: 0, bonus added: 0
+2025-08-08 09:33:07 - root - DEBUG - 'vol' occurrences: 0, bonus added: 0
+2025-08-08 09:33:07 - root - INFO - Final measurement score: 0
+2025-08-08 09:33:07 - root - DEBUG - Storing measurement scores and ROI data in candidate structure
+2025-08-08 09:33:07 - root - INFO - Identifying top 10 candidates based on measurement scores
+2025-08-08 09:33:07 - root - DEBUG - Top 10 score indices: [4, 0, 1, 2, 3, 5, 6, 7, 8, 9]
+2025-08-08 09:33:07 - root - DEBUG - Rank 1: Index 4, Score 12.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 2: Index 0, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 3: Index 1, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 4: Index 2, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 5: Index 3, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 6: Index 5, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 7: Index 6, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 8: Index 7, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 9: Index 8, Score 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Rank 10: Index 9, Score 0.000000
+2025-08-08 09:33:07 - root - INFO - Best candidate meets threshold (>= 4). Score: 12.000000
+2025-08-08 09:33:07 - root - DEBUG - All top 10 scores:
+2025-08-08 09:33:07 - root - DEBUG - Score index 4: 12.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 0: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 1: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 2: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 3: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 5: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 6: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 7: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 8: 0.000000
+2025-08-08 09:33:07 - root - DEBUG - Score index 9: 0.000000
+2025-08-08 09:33:07 - root - INFO - Measurement table detection completed successfully
+2025-08-08 09:33:07 - root - DEBUG - Table detection completed. Candidates found: 172
+2025-08-08 09:33:07 - root - INFO - Identifying organ name from the image
+2025-08-08 09:33:07 - root - INFO - Starting organ name identification
+2025-08-08 09:33:07 - root - DEBUG - Image shape: (786, 1136, 3)
+2025-08-08 09:33:07 - root - DEBUG - Delegating to content extractor for organ identification
+2025-08-08 09:33:07 - root - INFO - Starting organ label identification
+2025-08-08 09:33:07 - root - DEBUG - Input image shape: (786, 1136, 3)
+2025-08-08 09:33:07 - root - DEBUG - Performing OCR on full image for organ identification
+2025-08-08 09:33:11 - root - DEBUG - Line 1: '64/22Hz' (conf: 1.000)
+2025-08-08 09:33:11 - root - DEBUG - Line 2: 'Voluson' (conf: 0.983)
+2025-08-08 09:33:11 - root - DEBUG - Line 3: 'Voluson' (conf: 0.990)
+2025-08-08 09:33:11 - root - DEBUG - Line 4: 'Abdomen' (conf: 1.000)
+2025-08-08 09:33:11 - root - DEBUG - Line 5: 'S8' (conf: 0.741)
+2025-08-08 09:33:11 - root - DEBUG - Line 6: '58' (conf: 0.915)
+2025-08-08 09:33:11 - root - DEBUG - Line 7: 'HM PI 7.70 - 2.10' (conf: 0.927)
+2025-08-08 09:33:11 - root - DEBUG - Line 8: 'AO 100%' (conf: 0.938)
+2025-08-08 09:33:11 - root - DEBUG - Line 9: 'Gn -20' (conf: 0.947)
+2025-08-08 09:33:11 - root - DEBUG - Line 10: 'C6 M4' (conf: 0.883)
+2025-08-08 09:33:11 - root - DEBUG - Line 11: 'FF1/E2' (conf: 0.997)
+2025-08-08 09:33:11 - root - DEBUG - Line 12: 'SRIII2/CRI 2' (conf: 0.942)
+2025-08-08 09:33:11 - root - DEBUG - Line 13: 'UTERUS' (conf: 0.999)
+2025-08-08 09:33:11 - root - DEBUG - Line 14: 'D 8.60cm' (conf: 0.999)
+2025-08-08 09:33:11 - root - DEBUG - Line 15: '2 D 4.17cm' (conf: 0.963)
+2025-08-08 09:33:11 - root - DEBUG - Line 16: '3 D 3.63cm' (conf: 0.986)
+2025-08-08 09:33:11 - root - DEBUG - OCR completed. Processing 16 text lines for organ keywords
+2025-08-08 09:33:11 - root - DEBUG - Line 0 text: '64/22Hz'
+2025-08-08 09:33:11 - root - DEBUG - Line 1 text: 'Voluson'
+2025-08-08 09:33:11 - root - DEBUG - Line 2 text: 'Voluson'
+2025-08-08 09:33:11 - root - DEBUG - Line 3 text: 'Abdomen'
+2025-08-08 09:33:11 - root - DEBUG - Line 4 text: 'S8'
+2025-08-08 09:33:11 - root - DEBUG - Line 5 text: '58'
+2025-08-08 09:33:11 - root - DEBUG - Line 6 text: 'HM PI 7.70 - 2.10'
+2025-08-08 09:33:11 - root - DEBUG - Line 7 text: 'AO 100%'
+2025-08-08 09:33:11 - root - DEBUG - Line 8 text: 'Gn -20'
+2025-08-08 09:33:11 - root - DEBUG - Line 9 text: 'C6 M4'
+2025-08-08 09:33:11 - root - DEBUG - Line 10 text: 'FF1/E2'
+2025-08-08 09:33:11 - root - DEBUG - Line 11 text: 'SRIII2/CRI 2'
+2025-08-08 09:33:11 - root - DEBUG - Line 12 text: 'UTERUS'
+2025-08-08 09:33:11 - root - DEBUG - Line 13 text: 'D 8.60cm'
+2025-08-08 09:33:11 - root - DEBUG - Line 14 text: '2 D 4.17cm'
+2025-08-08 09:33:11 - root - DEBUG - Line 15 text: '3 D 3.63cm'
+2025-08-08 09:33:11 - root - DEBUG - Combined text for keyword search: '64/22hz voluson voluson abdomen s8 58 hm pi 7.70 - 2.10 ao 100% gn -20 c6 m4 ff1/e2 sriii2/cri 2 uterus d 8.60cm 2 d 4.17cm 3 d 3.63cm'
+2025-08-08 09:33:11 - root - DEBUG - Searching for organ keywords: ['right kidney', 'left kidney', 'kidney', 'renal', 'nephron', 'ureter', 'bladder', 'rt ovary', 'lt ovary', 'uterus', 'ss', 'subscap ten', 'breast', 'rt breast', 'lt breast', 'rt ax', 'lt ax', 'transplant kidney']
+2025-08-08 09:33:11 - root - DEBUG - Found organ keyword: 'uterus'
+2025-08-08 09:33:11 - root - INFO - Organ identification completed. Found 1 organ keywords
+2025-08-08 09:33:11 - root - INFO - Identified organs: ['uterus']
+2025-08-08 09:33:11 - root - INFO - Organ identification completed successfully: ['uterus']
+2025-08-08 09:33:11 - root - DEBUG - Organ identified: ['uterus']
+2025-08-08 09:33:11 - root - INFO - Table(s) detected successfully. Processing best candidate...
+2025-08-08 09:33:11 - root - DEBUG - Number of scored candidates: 10
+2025-08-08 09:33:11 - root - DEBUG - Best score index: 4
+2025-08-08 09:33:11 - root - INFO - Extracting structured data from detected table
+2025-08-08 09:33:11 - root - INFO - Starting table content extraction
+2025-08-08 09:33:11 - root - DEBUG - Bounding box coordinates: (3110, 2056, 294, 247)
+2025-08-08 09:33:11 - root - DEBUG - Image shape: (2358, 3404, 3)
+2025-08-08 09:33:11 - root - DEBUG - Delegating to content extractor for table processing
+2025-08-08 09:33:11 - root - INFO - Starting table content extraction
+2025-08-08 09:33:11 - root - DEBUG - Bounding box coordinates: (3110, 2056, 294, 247)
+2025-08-08 09:33:11 - root - INFO - Performing OCR on extracted table region
+2025-08-08 09:33:11 - root - DEBUG - Line 1: '1 D 8.60cm' (conf: 1.000)
+2025-08-08 09:33:11 - root - DEBUG - Line 2: '2 D 4.17cm' (conf: 0.999)
+2025-08-08 09:33:11 - root - DEBUG - Line 3: '3 ' (conf: 0.988)
+2025-08-08 09:33:11 - root - DEBUG - Line 4: 'D 3.63cm' (conf: 0.999)
+2025-08-08 09:33:11 - root - INFO - OCR completed successfully. Processing text elements...
+2025-08-08 09:33:11 - root - INFO - Extracted 4 text elements from table region
+2025-08-08 09:33:11 - root - INFO - Structuring extracted text data
+2025-08-08 09:33:11 - root - INFO - Starting table data structuring
+2025-08-08 09:33:11 - root - DEBUG - Element 1: text='1 D 8.60cm', x=154.00, y=43.50, conf=1.000
+2025-08-08 09:33:11 - root - DEBUG - Element 2: text='2 D 4.17cm', x=151.50, y=128.00, conf=0.999
+2025-08-08 09:33:11 - root - DEBUG - Element 3: text='3 ', x=55.50, y=214.00, conf=0.988
+2025-08-08 09:33:11 - root - DEBUG - Element 4: text='D 3.63cm', x=179.50, y=211.00, conf=0.999
+2025-08-08 09:33:11 - root - INFO - Filtered 0 elements, 4 remaining
+2025-08-08 09:33:11 - root - DEBUG - Processing element 1/4: '1 D 8.60cm' at (154.00, 43.50)
+2025-08-08 09:33:11 - root - DEBUG - Processing element 2/4: '2 D 4.17cm' at (151.50, 128.00)
+2025-08-08 09:33:11 - root - DEBUG - Processing element 3/4: 'D 3.63cm' at (179.50, 211.00)
+2025-08-08 09:33:11 - root - DEBUG - Processing element 4/4: '3 ' at (55.50, 214.00)
+2025-08-08 09:33:11 - root - INFO - Line grouping completed - Total lines: 3
+2025-08-08 09:33:11 - root - DEBUG - Processing line 1/3 with 1 elements
+2025-08-08 09:33:11 - root - DEBUG - Processing word 1/1: '1 D 8.60cm'
+2025-08-08 09:33:11 - root - DEBUG - Starting measurement text splitting
+2025-08-08 09:33:11 - root - DEBUG - Input text: '1 D 8.60cm'
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 1: (\d+)\s+(\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 matched successfully
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 groups: ('1', 'D', '8.60cm')
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 result: ('1', 'D', '8.60cm')
+2025-08-08 09:33:11 - root - INFO - Text split successful using pattern 1: ('1', 'D', '8.60cm')
+2025-08-08 09:33:11 - root - DEBUG - Split measurement result: ('1', 'D', '8.60cm')
+2025-08-08 09:33:11 - root - DEBUG - Processing line 2/3 with 1 elements
+2025-08-08 09:33:11 - root - DEBUG - Processing word 1/1: '2 D 4.17cm'
+2025-08-08 09:33:11 - root - DEBUG - Starting measurement text splitting
+2025-08-08 09:33:11 - root - DEBUG - Input text: '2 D 4.17cm'
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 1: (\d+)\s+(\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 matched successfully
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 groups: ('2', 'D', '4.17cm')
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 result: ('2', 'D', '4.17cm')
+2025-08-08 09:33:11 - root - INFO - Text split successful using pattern 1: ('2', 'D', '4.17cm')
+2025-08-08 09:33:11 - root - DEBUG - Split measurement result: ('2', 'D', '4.17cm')
+2025-08-08 09:33:11 - root - DEBUG - Processing line 3/3 with 2 elements
+2025-08-08 09:33:11 - root - DEBUG - Processing word 1/2: '3 '
+2025-08-08 09:33:11 - root - DEBUG - Starting measurement text splitting
+2025-08-08 09:33:11 - root - DEBUG - Input text: '3'
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 1: (\d+)\s+(\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 did not match
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 2: (\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 2 did not match
+2025-08-08 09:33:11 - root - DEBUG - No patterns matched for text: '3'
+2025-08-08 09:33:11 - root - INFO - Text split failed - no matching patterns found
+2025-08-08 09:33:11 - root - DEBUG - Split measurement result: None
+2025-08-08 09:33:11 - root - DEBUG - Processing word 2/2: 'D 3.63cm'
+2025-08-08 09:33:11 - root - DEBUG - Starting measurement text splitting
+2025-08-08 09:33:11 - root - DEBUG - Input text: 'D 3.63cm'
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 1: (\d+)\s+(\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 1 did not match
+2025-08-08 09:33:11 - root - DEBUG - Trying pattern 2: (\d*[a-zA-Z]+\d*)\s*[.\s]*\s*(\d+(?:\.\d+)?\s*cm)
+2025-08-08 09:33:11 - root - DEBUG - Pattern 2 matched successfully
+2025-08-08 09:33:11 - root - DEBUG - Pattern 2 groups: ('D', '3.63cm')
+2025-08-08 09:33:11 - root - DEBUG - Pattern 2 result: ('D', '3.63cm')
+2025-08-08 09:33:11 - root - INFO - Text split successful using pattern 2: ('D', '3.63cm')
+2025-08-08 09:33:11 - root - DEBUG - Split measurement result: ('D', '3.63cm')
+2025-08-08 09:33:11 - root - DEBUG - Final structured data:
+2025-08-08 09:33:11 - root - DEBUG - Item 1 (text): '{'Value1': ['1', 'D', '8.60cm']}'
+2025-08-08 09:33:11 - root - DEBUG - Item 2 (text): '{'Value2': ['2', 'D', '4.17cm']}'
+2025-08-08 09:33:11 - root - DEBUG - Item 3 (text): '{'Value3': ['3', 'D', '3.63cm']}'
+2025-08-08 09:33:11 - root - INFO - Table content extraction completed successfully
+2025-08-08 09:33:11 - root - DEBUG - Structured data keys: ['organLabel', 'value']
+2025-08-08 09:33:11 - root - DEBUG - Organ identified: ['uterus']
+2025-08-08 09:33:12 - root - INFO - Table extraction successful for file: API\extracted\testingDicom1 (1)\I0000020_20250417_103454
+2025-08-08 09:33:12 - root - INFO - Organ identified: ['uterus']
+2025-08-08 09:33:12 - root - DEBUG - Structured data extracted: {'organLabel': ['uterus'], 'value': ['1 D 8.60cm', '2 D 4.17cm', '3 D 3.63cm']}
+2025-08-08 09:33:12 - root - INFO - === DICOM Processing Session Completed === {'slice1': {'organLabel': ['uterus'], 'value': ['1 D 8.60cm', '2 D 4.17cm', '3 D 3.63cm']}} {'patientInformation': {'PatientName': 'DHIBANA.C.K', 'PatientID': 'CICPL13880', 'PatientAge': '19921017', 'PatientGender': 'F', 'HospitalName': 'CLARITY IMAGING CENTRE', 'PhysicianName': 'Dr. Geetha Raj. M.B.B.S., DNB (', 'scanType': 'PELVIS/US', 'scanDate': '20250417', 'scanTime': '103454', 'scanModality': 'US'}}
