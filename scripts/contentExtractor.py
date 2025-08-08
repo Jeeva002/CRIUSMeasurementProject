@@ -174,18 +174,24 @@ class ContentExtractor:
             logger.debug("Combined text for keyword search: '%s'", all_text.strip())
             
             # Define medical organ keywords to search for
-            keywords = ["right kidney", "left kidney", "kidney", "renal", "nephron", "ureter", 
-                       "bladder", "rt ovary", "lt ovary", "uterus","ss","subscap ten","breast","rt breast","lt breast","rt ax","lt ax","transplant kidney"]
-            
-            logger.debug("Searching for organ keywords: %s", keywords)
-            
-            # Search for organ keywords in the extracted text
+            keywords = ["right kidney", "rk kidney", "lk kidney", "left kidney", "kidney", "renal", "nephron", "ureter",
+                        "bladder", "rt ovary", "lt ovary", "uterus", "ss", "subscap ten", "breast", "rt breast", "lt breast", 
+                        "rt ax", "lt ax", "transplant kidney"]
+
+            # Sort keywords by length in descending order
+            keywords_sorted = sorted(keywords, key=len, reverse=True)
+            logger.debug("Searching for organ keywords: %s", keywords_sorted)
+
             found_keywords = []
-            for keyword in keywords:
-                if keyword in all_text:
+            remaining_text = all_text.lower()  # Convert to lowercase for case-insensitive matching
+
+            for keyword in keywords_sorted:
+                if keyword.lower() in remaining_text:
                     found_keywords.append(keyword)
                     logger.debug("Found organ keyword: '%s'", keyword)
-            
+                    # Remove the found keyword from remaining text to avoid substring matches
+                    remaining_text = remaining_text.replace(keyword.lower(), "", 1)
+
             logger.info("Organ identification completed. Found %d organ keywords", len(found_keywords))
             logger.info("Identified organs: %s", found_keywords)
             
