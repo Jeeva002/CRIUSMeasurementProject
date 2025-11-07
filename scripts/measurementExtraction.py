@@ -115,11 +115,13 @@ def processDicom(dicomDirectory=None):
         # Set the DICOM directory path (hardcoded for this example)
      #   dicomDirectory = 'C:\\Users\\Welcome\\Documents\\organized_dicom\\PELVIS_US\\E0000037'
         logger.info("Processing DICOM directory: %s", dicomDirectory)
+        print("Processing DICOM directory: %s", dicomDirectory)
         allMeasurementData = {}
         sliceNumber = 1
         
         # Verify directory exists
         if not os.path.exists(dicomDirectory):
+            print("DICOM directory does not exist: %s", dicomDirectory)
             logger.error("DICOM directory does not exist: %s", dicomDirectory)
             return
         
@@ -127,6 +129,7 @@ def processDicom(dicomDirectory=None):
         logger.info("Reading DICOM files from directory")
         dicomPathList, metaDataList = readDirectory(dicomDirectory)
         logger.info("Found %d DICOM files to process", len(dicomPathList))
+        print("Found %d DICOM files to process", len(dicomPathList))
         logger.debug("metaData: %s", metaDataList)
         metaDataList={'patientInformation':metaDataList}
         

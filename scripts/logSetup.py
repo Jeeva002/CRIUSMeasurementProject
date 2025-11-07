@@ -26,11 +26,9 @@ def setup_logging(log_dir="logs", console_level=logging.ERROR, clear_logs=True):
     if clear_logs:
         if os.path.exists(all_log_path):
             open(all_log_path, 'w').close()
-   
         
         if os.path.exists(error_log_path):
             open(error_log_path, 'w').close()
-       
     
     # Create logger
     logger = logging.getLogger()
@@ -65,6 +63,21 @@ def setup_logging(log_dir="logs", console_level=logging.ERROR, clear_logs=True):
     logger.addHandler(error_log_handler)
     logger.addHandler(console_handler)
     
+    # ===== SILENCE NOISY THIRD-PARTY LIBRARIES =====
+    # Set log levels for external libraries to WARNING or higher
+    # This prevents DEBUG and INFO logs from these libraries
+    logging.getLogger('numba').setLevel(logging.WARNING)
+    logging.getLogger('numba.core').setLevel(logging.WARNING)
+    logging.getLogger('numba.core.byteflow').setLevel(logging.WARNING)
+    logging.getLogger('numba.core.interpreter').setLevel(logging.WARNING)
+    logging.getLogger('transformers').setLevel(logging.WARNING)
+    logging.getLogger('torch').setLevel(logging.WARNING)
+    logging.getLogger('librosa').setLevel(logging.WARNING)
+    logging.getLogger('huggingface_hub').setLevel(logging.WARNING)
+    logging.getLogger('language_tool_python').setLevel(logging.WARNING)
+    logging.getLogger('urllib3').setLevel(logging.WARNING)
+    logging.getLogger('filelock').setLevel(logging.WARNING)
+    
     return logger
 
 
@@ -72,7 +85,4 @@ def setup_logging(log_dir="logs", console_level=logging.ERROR, clear_logs=True):
 if __name__ == "__main__":
     # Setup logging with WARNING level for console and clear existing logs
     logger = setup_logging(console_level=logging.WARNING, clear_logs=True)
-    
-    # Or setup without clearing existing logs
-    # logger = setup_logging(console_level=logging.WARNING, clear_logs=False)
     
