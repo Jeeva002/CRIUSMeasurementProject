@@ -78,9 +78,10 @@ class GrammarChecker:
                 logger.debug("Corrected text preview: %s...", corrected_text[:100] if len(corrected_text) > 100 else corrected_text)
             else:
                 logger.info("No grammar corrections needed")
-            
-            return corrected_text
-            
+            if corrected_text != None:
+             return corrected_text,True
+            else:
+                return corrected_text,False
         except Exception as e:
             logger.error("Error during grammar checking: %s", str(e), exc_info=True)
             logger.warning("Returning original text due to error")

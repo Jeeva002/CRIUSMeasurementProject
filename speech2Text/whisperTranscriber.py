@@ -138,9 +138,11 @@ class WhisperTranscriberHandler:
             # Log timestamps if available
             if "chunks" in result:
                 logger.debug("Number of timestamp chunks: %d", len(result["chunks"]))
-            
-            return transcription_text
-            
+            if transcription_text != None:
+                return transcription_text,True
+            else:
+                return transcription_text,False
+             
         except Exception as e:
             logger.error("Failed during inference: %s", str(e), exc_info=True)
             raise
