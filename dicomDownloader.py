@@ -8,10 +8,10 @@ import shutil
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Server configuration
-ORTHANC_URL = "https://43.204.105.12"
-USERNAME = "orthanc"
-PASSWORD = "orthanc"
-
+ORTHANC_URL = "https://genai.asthramedtech.com"
+USERNAME = "admin"
+PASSWORD = "1KfN0cnVL7C3XVbg"
+#1.2.826.0.1.3680043.8.1678.201.10638814340534406936.382542
 def download_study_by_uid(study_instance_uid, download_dir="API/downloads", extract_dir="API/extracted"):
     """
     Download DICOM study from Orthanc and extract to separate directory.
@@ -30,7 +30,7 @@ def download_study_by_uid(study_instance_uid, download_dir="API/downloads", extr
         Path(extract_dir).mkdir(parents=True, exist_ok=True)
         
         # 1. Find the study
-        print(f"Searching for study: {study_instance_uid}")
+        # print(f"Searching for study: {study_instance_uid}")
         search_url = f"{ORTHANC_URL}/tools/find"
         search_payload = {
             "Level": "Study",
@@ -48,15 +48,15 @@ def download_study_by_uid(study_instance_uid, download_dir="API/downloads", extr
         
         studies = response.json()
         if not studies:
-            print(f"✗ Study not found")
+            # print(f"✗ Study not found")
             return False, [], None
         
         orthanc_study_id = studies[0]
-        print(f"✓ Found study (ID: {orthanc_study_id})")
+        # print(f"✓ Found study (ID: {orthanc_study_id})")
         
         # 2. Download study as ZIP
         download_url = f"{ORTHANC_URL}/studies/{orthanc_study_id}/archive"
-        print(f"Downloading study...")
+        # print(f"Downloading study...")
         
         response = requests.get(
             download_url,
@@ -69,7 +69,7 @@ def download_study_by_uid(study_instance_uid, download_dir="API/downloads", extr
         # 3. Save ZIP to downloads directory
         zip_path = Path(download_dir) / f"{orthanc_study_id}.zip"
         zip_path.write_bytes(response.content)
-        print(f"✓ Saved ZIP to: {zip_path.absolute()}")
+        # print(f"✓ Saved ZIP to: {zip_path.absolute()}")
         
         # 4. Extract to extracted directory
         extract_path = Path(extract_dir) / orthanc_study_id
@@ -93,16 +93,16 @@ def download_study_by_uid(study_instance_uid, download_dir="API/downloads", extr
         extracted_files_abs = [str(f.absolute()) for f in extracted_files]
         folder_path = str(dicom_folder.absolute())
         
-        print(f"✓ Extracted {len(extracted_files)} files")
-        print(f"✓ DICOM files location: {folder_path}")
+        # print(f"✓ Extracted {len(extracted_files)} files")
+        # print(f"✓ DICOM files location: {folder_path}")
         
         return True, extracted_files_abs, folder_path
         
     except requests.exceptions.HTTPError as e:
-        print(f"✗ HTTP Error: {e}")
+        print(f" HTTP Error: {e}")
         return False, [], None
     except Exception as e:
-        print(f"✗ Error: {e}")
+        print(f" Error: {e}")
         import traceback
         traceback.print_exc()
         return False, [], None
@@ -126,7 +126,7 @@ def download_single_instance(study_instance_uid, output_filename):
             files.sort()
             shutil.copy(files[0], output_filename)
             output_abs_path = str(Path(output_filename).absolute())
-            print(f"✓ Saved to: {output_abs_path}")
+            # print(f"✓ Saved to: {output_abs_path}")
             return True, folder_path
         
         return False, None
@@ -136,16 +136,16 @@ def download_single_instance(study_instance_uid, output_filename):
         return False, None
 
 
-if __name__ == "__main__":
-    # Test with your study UID
-    test_uid = "1.2.826.0.1.3680043.8.1678.201.10638788272906500159.310245"
+# if __name__ == "__main__":
+#     # Test with your study UID
+#     test_uid = "1.2.826.0.1.3680043.8.1678.201.10638788272906500159.310245"
     
-    print("=== Downloading Study ===")
-    success, all_files, folder_path = download_study_by_uid(test_uid)
+#     print("=== Downloading Study ===")
+#     success, all_files, folder_path = download_study_by_uid(test_uid)
     
-    if success:
-        print(f"\n✓ Total files: {len(all_files)}")
-        print(f"✓ DICOM folder path: {folder_path}")
-        print("\nFirst 3 files:")
-        for f in all_files[:3]:
-            print(f"  {f}")
+#     if success:
+#         print(f"\n✓ Total files: {len(all_files)}")
+#         print(f"✓ DICOM folder path: {folder_path}")
+#         print("\nFirst 3 files:")
+#         for f in all_files[:3]:
+#             print(f"  {f}")

@@ -1,19 +1,239 @@
-2025-11-07 17:45:59 - root - INFO - Loading Speech-to-Text components...
-2025-11-07 17:45:59 - root - INFO - Initializing GrammarChecker with language: en-US
-2025-11-07 17:45:59 - root - DEBUG - Checking for existing model files in: C:\Users\asthr\OneDrive\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\language_tool_model
-2025-11-07 17:45:59 - root - INFO - Model files found in 'language_tool_model/'. Loading model...
-2025-11-07 17:45:59 - root - DEBUG - Initializing LanguageTool with language: en-US
-2025-11-07 17:46:01 - root - INFO - Grammar checker model loaded successfully!
-2025-11-07 17:46:01 - root - INFO - Initializing WhisperTranscriberHandler...
-2025-11-07 17:46:01 - root - INFO - Authenticating to Hugging Face...
-2025-11-07 17:46:02 - huggingface_hub._login - WARNING - Note: Environment variable`HF_TOKEN` is set and is the current active token independently from the token you've just configured.
-2025-11-07 17:46:02 - root - DEBUG - Hugging Face authentication successful
-2025-11-07 17:46:02 - root - INFO - Loading fine-tuned model and processor...
-2025-11-07 17:46:02 - root - DEBUG - Loading model from repository: sankar-asthramedtech/finetuned_whisper-medium_on_pods_V-1.1
-2025-11-07 17:46:03 - root - DEBUG - Fine-tuned model loaded successfully
-2025-11-07 17:46:05 - root - DEBUG - Whisper processor loaded successfully
-2025-11-07 17:46:05 - root - DEBUG - Generation config loaded and applied
-2025-11-07 17:46:05 - root - INFO - Setting up pipeline...
-2025-11-07 17:46:05 - root - DEBUG - Pipeline configuration: stride_length_s=15, language=en, num_beams=1
-2025-11-07 17:46:05 - root - INFO - Whisper model loaded and ready!
-2025-11-07 17:55:09 - root - INFO - Shutdown complete.
+2025-11-28 10:19:31 - root - INFO - === Starting DICOM Ultrasound Processing Session ===
+2025-11-28 10:19:31 - root - INFO - Processing DICOM directory: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US
+2025-11-28 10:19:31 - root - INFO - Reading DICOM files from directory
+2025-11-28 10:19:31 - root - INFO - Starting to read DICOM directory: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US
+2025-11-28 10:19:31 - root - DEBUG - Listing files in directory
+2025-11-28 10:19:31 - root - INFO - Found 32 files in directory to process
+2025-11-28 10:19:31 - root - DEBUG - Processing file 1/32: US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 2/32: US000003.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000003.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000003.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000003.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 3/32: US000004.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000004.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000004.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000004.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 4/32: US000005.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000005.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000005.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000005.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 5/32: US000006.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000006.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000006.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000006.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 6/32: US000007.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000007.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000007.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000007.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 7/32: US000008.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000008.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000008.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000008.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 8/32: US000009.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000009.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000009.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000009.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 9/32: US000010.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000010.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000010.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000010.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 10/32: US000011.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000011.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000011.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000011.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 11/32: US000012.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000012.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000012.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000012.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 12/32: US000013.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000013.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000013.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000013.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 13/32: US000014.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000014.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000014.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000014.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 14/32: US000015.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000015.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000015.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000015.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 15/32: US000016.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000016.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000016.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000016.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 16/32: US000017.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000017.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000017.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000017.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 17/32: US000018.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000018.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000018.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000018.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 18/32: US000019.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000019.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000019.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000019.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 19/32: US000020.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000020.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000020.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000020.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 20/32: US000021.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000021.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000021.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000021.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 21/32: US000022.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000022.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000022.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000022.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 22/32: US000023.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000023.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000023.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000023.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 23/32: US000024.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000024.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000024.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000024.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 24/32: US000025.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000025.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000025.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000025.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 25/32: US000026.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000026.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000026.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000026.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 26/32: US000027.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000027.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000027.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000027.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 27/32: US000028.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000028.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000028.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000028.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 28/32: US000029.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000029.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000029.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000029.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 29/32: US000030.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000030.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000030.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000030.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 30/32: US000031.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000031.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000031.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000031.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 31/32: US000032.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000032.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000032.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000032.dcm
+2025-11-28 10:19:31 - root - DEBUG - Processing file 32/32: US000033.dcm
+2025-11-28 10:19:31 - root - DEBUG - Checking if file is valid DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000033.dcm
+2025-11-28 10:19:31 - root - DEBUG - Attempting to read DICOM file with pydicom
+2025-11-28 10:19:31 - root - DEBUG - File successfully validated as DICOM: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000033.dcm
+2025-11-28 10:19:31 - root - DEBUG - Added valid DICOM file to list: US000033.dcm
+2025-11-28 10:19:31 - root - INFO - DICOM file validation completed. Found 32 valid DICOM files
+2025-11-28 10:19:31 - root - INFO - Extracting metadata from first DICOM file
+2025-11-28 10:19:31 - root - DEBUG - Extracting metadata from DICOM file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Reading DICOM metadata for information extraction
+2025-11-28 10:19:31 - root - INFO - Metadata extracted successfully from: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Extracted metadata: {'PatientName': 'KAVITHA.M', 'PatientID': 'CICPL14846', 'PatientAge': '19790324', 'PatientGender': 'F', 'HospitalName': 'CLARITY IMAGING CENTRE', 'PhysicianName': 'Dr. Devi Gayathri.P. MBBs., DNB', 'scanType': 'ABDOMEN/US', 'scanDate': '20250428', 'scanTime': '161021', 'scanModality': 'US'}
+2025-11-28 10:19:31 - root - INFO - Successfully extracted metadata
+2025-11-28 10:19:31 - root - INFO - Directory processing completed successfully
+2025-11-28 10:19:31 - root - DEBUG - Final results - DICOM files: 32, Metadata available: True
+2025-11-28 10:19:31 - root - INFO - Found 32 DICOM files to process
+2025-11-28 10:19:31 - root - DEBUG - metaData: {'PatientName': 'KAVITHA.M', 'PatientID': 'CICPL14846', 'PatientAge': '19790324', 'PatientGender': 'F', 'HospitalName': 'CLARITY IMAGING CENTRE', 'PhysicianName': 'Dr. Devi Gayathri.P. MBBs., DNB', 'scanType': 'ABDOMEN/US', 'scanDate': '20250428', 'scanTime': '161021', 'scanModality': 'US'}
+2025-11-28 10:19:31 - root - INFO - Processing DICOM file 1/32: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Converting DICOM to PNG format
+2025-11-28 10:19:31 - root - INFO - Starting DICOM to PNG conversion: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:31 - root - DEBUG - Reading DICOM file with pydicom
+2025-11-28 10:19:31 - root - INFO - DICOM file loaded successfully
+2025-11-28 10:19:31 - root - DEBUG - Original photometric interpretation: RGB
+2025-11-28 10:19:31 - root - INFO - Processing RGB format DICOM
+2025-11-28 10:19:31 - root - DEBUG - Converting RGB to BGR for OpenCV compatibility
+2025-11-28 10:19:31 - root - DEBUG - RGB to BGR conversion completed. New shape: (852, 1136, 3)
+2025-11-28 10:19:31 - root - INFO - DICOM to PNG conversion completed successfully
+2025-11-28 10:19:31 - root - DEBUG - DICOM conversion successful. Pixel array shape: (852, 1136, 3)
+2025-11-28 10:19:31 - root - DEBUG - Cropping ultrasound image area
+2025-11-28 10:19:31 - root - DEBUG - Initializing USRegionLocation detector
+2025-11-28 10:19:31 - root - INFO - Getting ultrasound region coordinates
+2025-11-28 10:19:31 - root - DEBUG - Raw coordinates - minx0: [0], miny0: [66], maxx1: [1136], maxy1: [852]
+2025-11-28 10:19:31 - root - DEBUG - Study type identified: (0008, 1030) Study Description                   LO: 'ABDOMEN/US'
+2025-11-28 10:19:31 - root - INFO - Single region detected, using direct coordinates
+2025-11-28 10:19:31 - root - DEBUG - Single region bounds - minX: 0, minY: 66, maxX: 1136, maxY: 852
+2025-11-28 10:19:31 - root - DEBUG - Cropping region: [66:852, 0:1136]
+2025-11-28 10:19:31 - root - INFO - Ultrasound image area extraction completed successfully
+2025-11-28 10:19:31 - root - DEBUG - Image cropping completed. Study type: (0008, 1030) Study Description                   LO: 'ABDOMEN/US'
+2025-11-28 10:19:31 - root - INFO - Analyzing cropped image for measurement tables
+2025-11-28 10:19:31 - root - INFO - Starting table detection in ultrasound image
+2025-11-28 10:19:31 - root - INFO - Initializing UltrasoundTableDetector
+2025-11-28 10:19:31 - root - INFO - Initializing OCRHandler
+2025-11-28 10:19:31 - root - DEBUG - Setting up PaddleOCR with optimized parameters
+2025-11-28 10:19:31 - root - DEBUG - Configuring PaddleOCR parameters:
+2025-11-28 10:19:31 - root - DEBUG - - use_angle_cls: True (enables angle classification)
+2025-11-28 10:19:31 - root - DEBUG - - lang: 'en' (English language)
+2025-11-28 10:19:40 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:40 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:40 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:40 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:40 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000002.dcm
+2025-11-28 10:19:45 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:45 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:45 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:45 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:45 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000003.dcm
+2025-11-28 10:19:50 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:50 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:50 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:50 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:50 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000004.dcm
+2025-11-28 10:19:55 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:55 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:55 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:55 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:55 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000005.dcm
+2025-11-28 10:20:00 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:20:00 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:20:00 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:20:00 - root - ERROR - Exception type: ValueError
+2025-11-28 10:20:00 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000006.dcm
+2025-11-28 10:20:05 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:20:05 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:20:05 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:20:05 - root - ERROR - Exception type: ValueError
+2025-11-28 10:20:05 - root - WARNING - No structured data extracted from file: C:\Users\Welcome\Documents\clarityNLP\AIFeaturesForGenerativeAIProjectProject\API\extracted\e6112419-3c6a20f9-988114f4-93ae8b59-94ec76e3\CICPL14846 KAVITHA.M\ASN21785 ABDOMENUS\US\US000007.dcm
+2025-11-28 10:20:20 - root - WARNING - No organ name identified from the image
+2025-11-28 10:20:26 - root - INFO - Shutting down process pools...
+2025-11-28 10:20:27 - root - INFO - Shutdown complete.

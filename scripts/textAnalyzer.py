@@ -222,7 +222,7 @@ class TextAnalyzer:
         
         # Log function entry
         logger.info("Starting table data structuring")
-        
+        # print("text",text_elements)
         # Log input elements for debugging
         for i, element in enumerate(text_elements):
             logger.debug("Element %d: text='%s', x=%.2f, y=%.2f, conf=%.3f", 

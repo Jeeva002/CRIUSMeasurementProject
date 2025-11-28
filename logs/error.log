@@ -1,0 +1,24 @@
+2025-11-28 10:19:40 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:40 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:40 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:40 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:45 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:45 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:45 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:45 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:50 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:50 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:50 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:50 - root - ERROR - Exception type: ValueError
+2025-11-28 10:19:55 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:19:55 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:19:55 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:19:55 - root - ERROR - Exception type: ValueError
+2025-11-28 10:20:00 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:20:00 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:20:00 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:20:00 - root - ERROR - Exception type: ValueError
+2025-11-28 10:20:05 - root - ERROR - Error during measurement table detection: local variable 'top10Scores' referenced before assignment
+2025-11-28 10:20:05 - root - ERROR - Exception type: UnboundLocalError
+2025-11-28 10:20:05 - root - ERROR - Error occurred during table detection: too many values to unpack (expected 2)
+2025-11-28 10:20:05 - root - ERROR - Exception type: ValueError

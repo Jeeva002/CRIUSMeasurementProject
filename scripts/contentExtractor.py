@@ -28,7 +28,6 @@ class ContentExtractor:
             text_analyzer: Analyzer for structuring extracted text data
         """
         logger.info("Initializing ContentExtractor")
-
         
         self.ocr_handler = ocr_handler
         self.text_analyzer = text_analyzer
@@ -59,37 +58,47 @@ class ContentExtractor:
         try:
             # Extract bounding box coordinates
             x, y, w, h = bbox
-     
             roi = image[y:y+h, x:(x+w)]
             roi2 = image[y:y+h, x:(x+w)+4]  # Extended ROI for comparison
             
-
-         
-
             # Perform OCR on the extracted region
             logger.info("Performing OCR on extracted table region")
             result = self.ocr_handler.get_ocr_result(roi)
             
-            # Check if OCR returned valid results
-            if not result or not result[0]:
+            # Check if OCR returned valid results (PaddleOCR 3.2 structure)
+            if not result or len(result) == 0:
                 logger.warning("OCR returned no results for table region")
                 return {}
             
             logger.info("OCR completed successfully. Processing text elements...")
-
-            # Extract text with positions from OCR results
+            
+            
+            # Extract text elements from PaddleOCR 3.2 result structure
             text_elements = []
-            for line_idx, line in enumerate(result[0]):
-                if line:
+            
+            # In PaddleOCR 3.2, result is a list with one element containing a dictionary
+            if isinstance(result, list) and len(result) > 0:
+                result_dict = result[0]
+                
+                # Extract rec_texts, rec_scores, and rec_boxes
+                texts = result_dict.get('rec_texts', [])
+                scores = result_dict.get('rec_scores', [])
+                boxes = result_dict.get('rec_boxes', [])
+                
+                logger.info("Processing %d text elements from OCR result", len(texts))
+                
+                # Process each detected text element
+                for line_idx, (text, confidence, box) in enumerate(zip(texts, scores, boxes)):
                     try:
-                        # Extract bounding box coordinates, text, and confidence from OCR result
-                        bbox_coords = line[0]
-                        text = line[1][0]
-                        confidence = line[1][1]
-                        
-                        # Calculate center position of the text element
-                        center_x = (bbox_coords[0][0] + bbox_coords[2][0]) / 2
-                        center_y = (bbox_coords[0][1] + bbox_coords[2][1]) / 2
+                        # Calculate center position of the text bounding box
+                        if box.ndim == 2 and box.shape[1] == 2:
+                            center_x = float(box[:, 0].mean())
+                            center_y = float(box[:, 1].mean())
+                        else:
+                            # Fallback: try to reshape if needed
+                            box_reshaped = box.reshape(-1, 2)
+                            center_x = float(box_reshaped[:, 0].mean())
+                            center_y = float(box_reshaped[:, 1].mean())
                         
                         # Create structured text element
                         text_element = {
@@ -100,7 +109,8 @@ class ContentExtractor:
                         }
                         text_elements.append(text_element)
                         
-               
+                        logger.debug("Processed text element %d: '%s' (conf: %.3f)", 
+                                   line_idx, text, confidence)
                         
                     except Exception as e:
                         logger.error("Error processing OCR line %d: %s", line_idx, str(e))
@@ -114,7 +124,6 @@ class ContentExtractor:
             
             if structured_data:
                 logger.info("Table content extraction completed successfully")
-            
             else:
                 logger.warning("Text analyzer returned empty structured data")
             
@@ -152,31 +161,40 @@ class ContentExtractor:
             logger.debug("Performing OCR on full image for organ identification")
             result = self.ocr_handler.get_ocr_result(img)
             
-            # Check if OCR returned valid results
-            if not result or not result[0]:
+            # Check if OCR returned valid results (PaddleOCR 3.2 structure)
+            if not result or len(result) == 0:
                 logger.warning("OCR returned no results for organ identification")
                 return []
             
-            logger.debug("OCR completed. Processing %d text lines for organ keywords", len(result[0]))
-            
             # Extract all text content from OCR results
             all_text = ""
-            for line_idx, line in enumerate(result[0]):
-                if line:
+            
+            # In PaddleOCR 3.2, result is a list with one element containing a dictionary
+            if isinstance(result, list) and len(result) > 0:
+                result_dict = result[0]
+                
+                # Extract rec_texts
+                texts = result_dict.get('rec_texts', [])
+                
+                logger.debug("OCR completed. Processing %d text lines for organ keywords", len(texts))
+                
+                # Combine all text for keyword search
+                for line_idx, text in enumerate(texts):
                     try:
-                        text = line[1][0]
                         all_text += text.lower() + " "
                         logger.debug("Line %d text: '%s'", line_idx, text)
                     except Exception as e:
-                        logger.error("Error processing OCR line %d for organ identification: %s", line_idx, str(e))
+                        logger.error("Error processing OCR line %d for organ identification: %s", 
+                                   line_idx, str(e))
                         continue
             
             logger.debug("Combined text for keyword search: '%s'", all_text.strip())
             
             # Define medical organ keywords to search for
-            keywords = ["right kidney", "rk kidney", "lk kidney", "left kidney", "kidney", "renal", "nephron", "ureter",
-                        "bladder", "rt ovary", "lt ovary", "uterus", "ss", "subscap ten", "breast", "rt breast", "lt breast", 
-                        "rt ax", "lt ax", "transplant kidney"]
+            keywords = ["right kidney", "rk kidney", "lk kidney", "left kidney", "kidney", 
+                       "renal", "nephron", "ureter", "bladder", "rt ovary", "lt ovary", 
+                       "uterus", "ss", "subscap ten", "breast", "rt breast", "lt breast", 
+                       "rt ax", "lt ax", "transplant kidney"]
 
             # Sort keywords by length in descending order
             keywords_sorted = sorted(keywords, key=len, reverse=True)
@@ -195,11 +213,10 @@ class ContentExtractor:
             logger.info("Organ identification completed. Found %d organ keywords", len(found_keywords))
             logger.info("Identified organs: %s", found_keywords)
             
-          
-            if found_keywords==None:
-                return None
+            if not found_keywords:
+                return []
             else:
-              return found_keywords
+                return found_keywords
             
         except Exception as e:
             # Log any errors that occur during organ identification

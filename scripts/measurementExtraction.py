@@ -3,7 +3,7 @@ from scripts.dicomHandler import dicom_to_png, usImageArea, display_image
 from scripts.ultrasoundTableAnalyzer import UltrasoundTableDetector
 from scripts.dicomFileManager import readDirectory
 import pkg_resources
-
+import numpy as np
 libraries = [
     "paddleocr",
     "paddlepaddle",
@@ -29,7 +29,7 @@ import os
 # Initialize logger using the external logging setup
 logger = setup_logging()
 
-def detect_tables_in_ultrasound(image):
+def detect_tables_in_ultrasound(image,yoloDetector):
     """
     Analyzes ultrasound images to detect and extract measurement tables
     
@@ -56,7 +56,8 @@ def detect_tables_in_ultrasound(image):
         
         # Detect measurement tables in the image
         logger.info("Detecting measurement tables in the image")
-        candidates, enhanced, scores = detector.detect_measurement_table(image)
+        
+        candidates,image = detector.detect_measurement_table(image,yoloDetector)
         logger.debug("Table detection completed. Candidates found: %s", len(candidates) if candidates else 0)
         
         # Identify organ name from the image
@@ -65,15 +66,16 @@ def detect_tables_in_ultrasound(image):
         logger.debug("Organ identified: %s", organLabel)
         
         # Check if any tables were detected
-        if scores is not None:
-            logger.info("Table(s) detected successfully. Processing best candidate...")
-            logger.debug("Number of scored candidates: %s", len(scores))
-            logger.debug("Best score index: %s", scores[0] if scores else "None")
+        if candidates is not None:
+            # logger.info("Table(s) detected successfully. Processing best candidate...")
+            # logger.debug("Number of scored candidates: %s", len(scores))
+            # logger.debug("Best score index: %s", scores[0] if scores else "None")
             
             # Extract structured data from the best table candidate
+          
             logger.info("Extracting structured data from detected table")
-            structuredData = detector.extract_table_content(enhanced, candidates[scores[0]]['bbox'])
-
+            structuredData = detector.extract_table_content(image, candidates[0]['bbox'])
+         
             organ_dict = {'organLabel': organLabel}
             structuredData = organ_dict | structuredData
           
@@ -91,7 +93,7 @@ def detect_tables_in_ultrasound(image):
         logger.error("Exception type: %s", type(e).__name__)
         return None, None, None
 
-def processDicom(dicomDirectory=None):
+def processDicom(dicomDirectory,yoloDetector):
     """
     Main function to orchestrate DICOM ultrasound processing workflow
     
@@ -156,7 +158,16 @@ def processDicom(dicomDirectory=None):
                 
                 # Detect and extract measurement tables from the cropped image
                 logger.info("Analyzing cropped image for measurement tables")
-                structured_data, result_img, organName = detect_tables_in_ultrasound(cropped_image)
+                import cv2
+
+                # If numpy array and single-channel, convert to 3-channel BGR
+                if isinstance(cropped_image, np.ndarray):
+                    if len(cropped_image.shape) == 2:  # grayscale
+                        cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_GRAY2BGR)
+                    elif cropped_image.shape[-1] == 1:  # H, W, 1
+                        cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_GRAY2BGR)
+
+                structured_data, result_img, organName = detect_tables_in_ultrasound(cropped_image,yoloDetector)
                 
                 # Log the final results
                 if structured_data:
