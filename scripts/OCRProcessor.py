@@ -2,6 +2,7 @@
 from paddleocr import PaddleOCR
 import logging
 import cv2
+import numpy as np
 # Import logging setup from external logging configuration file
 from scripts.logSetup import setup_logging
 
@@ -32,6 +33,7 @@ class OCRHandler:
         logger.info("Initializing OCRHandler")
         logger.debug("Setting up PaddleOCR with optimized parameters")
         logging.getLogger("ppocr").disabled = True
+      
         try:
             # Initialize PaddleOCR with specific parameters for ultrasound image processing
             logger.debug("Configuring PaddleOCR parameters:")
@@ -52,104 +54,35 @@ class OCRHandler:
             logger.error("Exception type: %s", type(e).__name__)
             raise
 
-    def extract_text_with_positions(self, roi):
-        """
-        Extract text with position information using PaddleOCR 3.2
-        
-        This method processes a region of interest (ROI) and extracts all text
-        elements along with their spatial coordinates and confidence scores.
-        
-        Args:
-            roi: Region of interest image array/object to process
-            
-        Returns:
-            list: List of dictionaries containing:
-                - text: Extracted text string
-                - x: Center X coordinate of text bounding box
-                - y: Center Y coordinate of text bounding box
-                - confidence: OCR confidence score (0.0 to 1.0)
-                
-        Returns empty list if no text is found or error occurs.
-        """
-        
-        try:
-            # Perform OCR on the region of interest using predict() method (PaddleOCR 3.2)
-            result = self.ocr.predict(roi)
-       
-            # Check if OCR returned valid results
-            if result is None or len(result) == 0:
-                logger.info("No text detected in the image")
-                return []
-            
-            # Extract text elements from PaddleOCR 3.2 result structure
-            text_elements = []
-            
-            # In PaddleOCR 3.2, result is a list with one element containing a dictionary
-            if isinstance(result, list) and len(result) > 0:
-                result_dict = result[0]
-    
-                # Extract rec_texts, rec_scores, and rec_boxes
-                texts = result_dict.get('rec_texts', [])
-                scores = result_dict.get('rec_scores', [])
-                boxes = result_dict.get('rec_boxes', [])
-       
-                logger.info("Total text elements extracted: %d", len(texts))
-                
-                # Process each detected text element
-                for idx, (text, confidence, box) in enumerate(zip(texts, scores, boxes)):
-                    logger.debug("Processing text line %d/%d", idx + 1, len(texts))
-                    logger.debug("Text line %d: '%s' (confidence: %.3f)", idx + 1, text, confidence)
-                    
-                    # Calculate center position of the text bounding box
-                    # box is a numpy array with shape [N, 2] containing polygon points
-                    if box.ndim == 2 and box.shape[1] == 2:
-                        center_x = float(box[:, 0].mean())
-                        center_y = float(box[:, 1].mean())
-                    else:
-                        # Fallback: try to reshape if needed
-                        box_reshaped = box.reshape(-1, 2)
-                        center_x = float(box_reshaped[:, 0].mean())
-                        center_y = float(box_reshaped[:, 1].mean())
-                    
-                    # Create structured text element
-                    text_element = {
-                        'text': text,
-                        'x': center_x,
-                        'y': center_y,
-                        'confidence': confidence
-                    }
-                    
-                    text_elements.append(text_element)
-                    logger.debug("Text element added to results")
-            
-            logger.info("Text extraction completed successfully")
-            if text_elements:
-                logger.debug("Average confidence: %.3f", 
-                           sum(elem['confidence'] for elem in text_elements) / len(text_elements))
-            
-            return text_elements
-            
-        except Exception as e:
-            # Log errors during text extraction
-            logger.error("Error occurred during text extraction with positions: %s", str(e))
-            logger.error("Exception type: %s", type(e).__name__)
-            logger.debug("ROI type when error occurred: %s", type(roi))
-            return []
+
     def preProcess(self,roi):
             h, w = roi.shape[:2]
 
-            upscale_2x = cv2.resize(roi, (w*2, h*2), interpolation=cv2.INTER_CUBIC)
+            upscale_2x = cv2.resize(roi, (w*3, h*3), interpolation=cv2.INTER_CUBIC)
             gray = cv2.cvtColor(upscale_2x, cv2.COLOR_BGR2GRAY)
 
             # 2. Convert Gray -> BGR
             
 
             # 3. Apply CLAHE
-            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+            clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8, 8))
             clahe_img = clahe.apply(gray)
             gray_to_bgr = cv2.cvtColor(clahe_img, cv2.COLOR_GRAY2BGR)
             return gray_to_bgr
-    def get_ocr_result(self, roi):
+    def preProcessLabel(self,roi):
+        img_float = roi.astype(np.float32) / 255.0
+        
+        mean = np.mean(img_float)
+        
+        # dynamic gamma: darker → higher gamma, brighter → lower gamma
+        gamma = 1.0 + (0.5 - mean) * 2.0     # output gamma range: 0→2
+        
+        gamma = np.clip(gamma, 0.3, 2.5)      # safe limits
+        
+        corrected = np.power(img_float, gamma)
+        
+        return (corrected * 255).astype("uint8")
+    def get_ocr_result(self, roi,preProcess=False):
         """
         Get raw OCR result from PaddleOCR 3.2
         
@@ -170,15 +103,23 @@ class OCRHandler:
         
         try:
             # Perform OCR using predict() method (PaddleOCR 3.2)
-           # roi=self.preProcess(roi)
-            result = self.ocr.predict(roi)
-        
+            if preProcess==True:
+       
+                roi=self.preProcess(roi)
+                result = self.ocr.predict(roi)
+            else:
+                roi=self.preProcessLabel(roi)
+                result = self.ocr.predict(roi)
+     
+                import matplotlib.pyplot as plt
+
+
             # Log result summary
             if result and len(result) > 0:
                 result_dict = result[0]
                 texts = result_dict.get('rec_texts', [])
                 scores = result_dict.get('rec_scores', [])
-               
+          
                 logger.info("Raw OCR result obtained: %d text elements detected", len(texts))
                 
                 # Log each detected text line for debugging
@@ -195,3 +136,5 @@ class OCRHandler:
             logger.error("Exception type: %s", type(e).__name__)
             logger.debug("ROI type when error occurred: %s", type(roi))
             return None
+        
+OCRHandlerOBJ=OCRHandler()

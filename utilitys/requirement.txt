@@ -7,6 +7,6 @@ pydicom==2.4.4
 fastapi==0.116.1
 uvicorn==0.35.0
 python-multipart==0.0.20
-
-
+transformers==4.44.2
+torch --index-url https://download.pytorch.org/whl/cu124
 

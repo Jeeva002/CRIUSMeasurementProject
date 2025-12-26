@@ -1,15 +1,57 @@
 # Import required modules for DICOM processing and image handling
 import pydicom
 import cv2
-
+from PIL import Image
+import os
+import numpy as np
 # Import custom module for ultrasound region location detection
-from scripts.dicomRegionLocation import USRegionLocation
+
 
 # Import logging setup from external logging configuration file
 from scripts.logSetup import setup_logging
 
 # Initialize logger using the external logging setup
 logger = setup_logging()
+def dicom_to_pngUpdated(dicom_path):
+    """
+    Convert a DICOM file to PNG format.
+    
+    Args:
+        dicom_path (str): Path to the DICOM file
+        output_path (str): Path where PNG will be saved. 
+                          If None, saves in same directory with .png extension
+    """
+    try:
+        # Read DICOM file
+        dicom = pydicom.dcmread(dicom_path)
+        
+        # Extract pixel data
+        logger.debug("Reading DICOM file with pydicom")
+        pixel_array = dicom.pixel_array
+        logger.info("DICOM file loaded successfully")
+        # Normalize pixel values to 0-255 range
+        pixel_array = ((pixel_array - pixel_array.min()) / 
+                       (pixel_array.max() - pixel_array.min()) * 255).astype(np.uint8)
+        logger.info("pixel array loaded successfully")
+        # Convert to PIL Image
+        image = Image.fromarray(pixel_array)
+        logger.info("image conversion loaded successfully")
+        # Handle grayscale images
+        if image.mode == 'L':
+            image = image.convert('RGB')
+        logger.info("image L loaded successfully")
+        cv_image = np.array(image)        # PIL gives RGB array
+        cv_image = cv_image[:, :, ::1]        # no need to flip if you keep RGB
+        cv_image = cv2.cvtColor(cv_image, cv2.COLOR_RGB2BGR)  # convert to BGR
+      
+            
+
+
+        return True ,cv_image
+       
+    except Exception as e:
+        print(f" Error converting {dicom_path}: {str(e)}")
+        return False,cv_image
 
 def dicom_to_png(dicom_path):
     """
@@ -104,127 +146,3 @@ def dicom_to_png(dicom_path):
         print(f"Error type: {type(e).__name__}")
         return False, None
 
-def usImageArea(dicom_path, pixel_array):
-    """
-    Extract the ultrasound image area from the full DICOM image
-    
-    This function uses the USRegionLocation class to identify the actual
-    ultrasound image region within the DICOM file and crops the pixel array
-    to focus on the relevant medical imaging area.
-    
-    Args:
-        dicom_path (str): Path to the DICOM file for metadata analysis
-        pixel_array (numpy.ndarray): Pixel array from the DICOM file
-        
-    Returns:
-        tuple: (cropped_region, study_type) - Cropped image array and study type
-    """
-    
-
-
-    
-    try:
-        # Initialize ultrasound region location detector
-        logger.debug("Initializing USRegionLocation detector")
-        us_region = USRegionLocation(dicom_path)
-        
-        # Get coordinates of the ultrasound region
-        logger.info("Getting ultrasound region coordinates")
-        minx0, miny0, maxx1, maxy1, studyType = us_region.get_coordinates()
-        
-        logger.debug("Raw coordinates - minx0: %s, miny0: %s, maxx1: %s, maxy1: %s", 
-                   minx0, miny0, maxx1, maxy1)
-        logger.debug("Study type identified: %s", studyType)
-        
-        # Process coordinates based on number of regions detected
-        if len(minx0) >= 2:
-            logger.info("Multiple regions detected (%d regions), calculating combined bounds", len(minx0))
-            
-            # Calculate combined bounding box for multiple regions
-            minX = min(minx0[0], minx0[1])
-            minY = min(miny0[0], miny0[1])
-            maxX = max(maxx1[0], maxx1[1])
-            maxY = max(maxy1[0], maxy1[1])
-            
-            logger.debug("Combined bounds - minX: %d, minY: %d, maxX: %d, maxY: %d", 
-                       minX, minY, maxX, maxY)
-            
-        else:
-            logger.info("Single region detected, using direct coordinates")
-            
-            # Use coordinates from single region
-            minX = minx0[0]
-            minY = miny0[0]
-            maxX = maxx1[0]
-            maxY = maxy1[0]
-            
-            logger.debug("Single region bounds - minX: %d, minY: %d, maxX: %d, maxY: %d", 
-                       minX, minY, maxX, maxY)
-        
-        # Crop the image to the ultrasound region
-
-        logger.debug("Cropping region: [%d:%d, %d:%d]", minY, maxY, minX, maxX)
-        
-        cropedRegion = pixel_array[minY:maxY, minX:maxX]
-        
-        logger.info("Ultrasound image area extraction completed successfully")
-
-        
-        return cropedRegion, studyType
-        
-    except Exception as e:
-        # Handle any errors during region extraction
-        logger.error("Error extracting ultrasound image area: %s", str(e))
-        logger.error("Exception type: %s", type(e).__name__)
-        logger.error("DICOM path: %s", dicom_path)
-        
-        # Return original image if cropping fails
-        logger.warning("Returning original pixel array due to cropping error")
-        return pixel_array, None
-
-def display_image(image, window_name='DICOM Image'):
-    """
-    Display image using OpenCV
-    
-    This function creates an OpenCV window to display the processed image
-    and waits for user input before closing the window.
-    
-    Args:
-        image (numpy.ndarray): Image array to display
-        window_name (str): Name of the display window
-    """
-    
-    logger.info("Displaying image in OpenCV window: %s", window_name)
-    logger.debug("Image shape: %s", image.shape if hasattr(image, 'shape') else 'Unknown')
-    logger.debug("Image data type: %s", image.dtype if hasattr(image, 'dtype') else 'Unknown')
-    
-    try:
-        # Display the image in OpenCV window
-        logger.debug("Creating OpenCV window and displaying image")
-        cv2.imshow(window_name, image)
-        
-        logger.info("Image displayed successfully")
-        print("Image displayed")
-        print("Press any key to exit.")
-        
-        # Wait for user input and then close windows
-        logger.debug("Waiting for user input (key press)")
-        cv2.waitKey(0)
-        
-        logger.debug("Destroying OpenCV windows")
-        cv2.destroyAllWindows()
-        
-        logger.info("Image display completed and windows closed")
-        
-    except Exception as e:
-        # Handle any errors during image display
-        logger.error("Error displaying image: %s", str(e))
-        logger.error("Exception type: %s", type(e).__name__)
-        logger.error("Window name: %s", window_name)
-        
-        # Try to close windows even if display failed
-        try:
-            cv2.destroyAllWindows()
-            logger.debug("OpenCV windows destroyed after error")
-        except:
-            logger.error("Failed to destroy OpenCV windows after display error")

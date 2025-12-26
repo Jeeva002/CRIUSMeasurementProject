@@ -1,5 +1,5 @@
 # Import required modules for image processing and OCR
-import cv2
+from scripts.OCRProcessor import OCRHandlerOBJ
 
 # Import logging setup from external logging configuration file
 from scripts.logSetup import setup_logging
@@ -19,7 +19,7 @@ class ContentExtractor:
     - Organ label identification from medical images
     """
     
-    def __init__(self, ocr_handler, text_analyzer):
+    def __init__(self, text_analyzer):
         """
         Initialize the ContentExtractor with OCR handler and text analyzer
         
@@ -28,13 +28,13 @@ class ContentExtractor:
             text_analyzer: Analyzer for structuring extracted text data
         """
         logger.info("Initializing ContentExtractor")
-        
-        self.ocr_handler = ocr_handler
+
+
         self.text_analyzer = text_analyzer
         
         logger.info("ContentExtractor initialized successfully")
 
-    def extract_table_content(self, image, bbox):
+    def extract_table_content(self, image, bbox,flag):
         """
         Extract and structure the content from detected table region
         
@@ -60,11 +60,11 @@ class ContentExtractor:
             x, y, w, h = bbox
             roi = image[y:y+h, x:(x+w)]
             roi2 = image[y:y+h, x:(x+w)+4]  # Extended ROI for comparison
-            
+
             # Perform OCR on the extracted region
             logger.info("Performing OCR on extracted table region")
-            result = self.ocr_handler.get_ocr_result(roi)
-            
+            result = OCRHandlerOBJ.get_ocr_result(roi,flag)
+
             # Check if OCR returned valid results (PaddleOCR 3.2 structure)
             if not result or len(result) == 0:
                 logger.warning("OCR returned no results for table region")
@@ -159,7 +159,8 @@ class ContentExtractor:
         try:
             # Perform OCR on the entire image
             logger.debug("Performing OCR on full image for organ identification")
-            result = self.ocr_handler.get_ocr_result(img)
+     
+            result = OCRHandlerOBJ.get_ocr_result(img)
             
             # Check if OCR returned valid results (PaddleOCR 3.2 structure)
             if not result or len(result) == 0:
@@ -191,9 +192,9 @@ class ContentExtractor:
             logger.debug("Combined text for keyword search: '%s'", all_text.strip())
             
             # Define medical organ keywords to search for
-            keywords = ["right kidney", "rk kidney", "lk kidney", "left kidney", "kidney", 
-                       "renal", "nephron", "ureter", "bladder", "rt ovary", "lt ovary", 
-                       "uterus", "ss", "subscap ten", "breast", "rt breast", "lt breast", 
+            keywords = ["right kidney", "rt kidney", "lt kidney", "LT KIDNEY","left kidney", "kidney", 
+                       "renal", "nephron", "ureter", "bladder", "rt ovary","RT OVARY" ,"lt ovary", 
+                       "uterus", "subscap ten", "breast", "rt breast", "lt breast", 
                        "rt ax", "lt ax", "transplant kidney"]
 
             # Sort keywords by length in descending order
@@ -212,7 +213,7 @@ class ContentExtractor:
 
             logger.info("Organ identification completed. Found %d organ keywords", len(found_keywords))
             logger.info("Identified organs: %s", found_keywords)
-            
+          
             if not found_keywords:
                 return []
             else:
@@ -223,3 +224,4 @@ class ContentExtractor:
             logger.error("Error during organ label identification: %s", str(e))
             logger.error("Exception type: %s", type(e).__name__)
             return []
+        

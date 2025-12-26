@@ -1,6 +1,7 @@
 # Import custom modules for OCR, table detection, and content analysis
-from scripts.OCRProcessor import OCRHandler
 
+import traceback
+import sys
 from scripts.textAnalyzer import TextAnalyzer
 from scripts.contentExtractor import ContentExtractor
 import heapq
@@ -37,7 +38,7 @@ class UltrasoundTableDetector:
         
         try:
             # Initialize OCR handler for text recognition
-            self.ocr_handler = OCRHandler()
+   
             
             # Initialize table detector for finding rectangular regions
 
@@ -48,8 +49,8 @@ class UltrasoundTableDetector:
             
             # Initialize content extractor with OCR and text analysis capabilities
    
-            self.content_extractor = ContentExtractor(self.ocr_handler, self.text_analyzer)
-            
+            self.content_extractor = ContentExtractor(self.text_analyzer)
+       
             logger.info("UltrasoundTableDetector initialization completed successfully")
             
         except Exception as e:
@@ -79,17 +80,18 @@ class UltrasoundTableDetector:
 
         
         try:
-
+        
             candidate_regions= yoloDetector.detect(image)
             
             logger.debug("Found %d candidate regions", len(candidate_regions) if candidate_regions else 0)
-            
+            print("candidate region",candidate_regions)
             # Initialize lists to store ROI data and measurement scores
             roi_list = []
             measurement_score = []
             
             # Step 2: Process each candidate region
             logger.info("Processing candidate regions for measurement content")
+     
             for idx, candidate in enumerate(candidate_regions):
                 
                 
@@ -97,62 +99,20 @@ class UltrasoundTableDetector:
                     # Extract ROI from the candidate region
                     roi = candidate['roi']
                     roi_list.append(roi)
-                  
-                    # measurement_score_single = self.text_analyzer.calculate_measurement_score(roi, self.ocr_handler)
-                    # measurement_score.append(measurement_score_single)
- 
                     
                 except Exception as e:
                     # Log errors for individual candidate processing
                     logger.warning("Error processing candidate %d: %s", idx, str(e))
-                    # measurement_score.append(0.0)  # Default score for failed candidates
-                    # roi_list.append(None)
-            
-            # Step 3: Store results in the candidate structure
-            logger.debug("Storing measurement scores and ROI data in candidate structure")
-       
-            if candidate_regions:
-                # Note: This seems to modify the last candidate, might need review
-                candidate = candidate_regions[-1]  # This might be a bug in original code
-                candidate['measurement_score'] = measurement_score
-                candidate['roi'] = roi_list
-            
-            # # Step 4: Find top 10 candidates based on measurement scores
-            # logger.info("Identifying top 10 candidates based on measurement scores")
-            # top10Scores = heapq.nlargest(10, range(len(measurement_score)), key=lambda i: measurement_score[i])
-            # logger.debug("Top 10 score indices: %s", top10Scores)
-            
-            # # Log the scores for debugging
-            # for i, score_idx in enumerate(top10Scores):
-            #     logger.debug("Rank %d: Index %d, Score %f", i + 1, score_idx, measurement_score[score_idx])
-            
-            # # Step 5: Check if the best candidate meets the minimum threshold
-            # if top10Scores and measurement_score[top10Scores[0]] >= 4:
-            #     logger.info("Best candidate meets threshold (>= 4). Score: %f", measurement_score[top10Scores[0]])
-                
-            #     # Log all top 10 scores for analysis
-            #     logger.debug("All top 10 scores:")
-            #     for i in top10Scores:
-            #         logger.debug("Score index %d: %f", i, measurement_score[i])
-                  
-                
-                logger.info("Measurement table detection completed successfully")
-                return candidate_regions,image 
-            else:
-                # Best candidate doesn't meet the threshold
-                best_score = measurement_score[top10Scores[0]] if top10Scores else 0
-                logger.warning("No candidates meet the minimum threshold of 4. Best score: %f", best_score)
-                
-                top10Scores = None
-                logger.info("Measurement table detection completed - no valid tables found")
-                return candidate_regions,image 
-                
+                    measurement_score.append(0.0)  # Default score for failed candidates
+                    roi_list.append(None)
+      
+            return roi_list
         except Exception as e:
-            # Log any errors during the detection process
+            # Log the error message
             logger.error("Error during measurement table detection: %s", str(e))
             logger.error("Exception type: %s", type(e).__name__)
-            return None, None, None
-    
+            
+ 
     def extract_table_content(self, image, bbox):
         """
         Extract and structure the content from detected table region
@@ -171,6 +131,7 @@ class UltrasoundTableDetector:
         """
         
         # Log function entry
+      
         logger.info("Starting table content extraction")
         logger.debug("Bounding box coordinates: %s", bbox)
         logger.debug("Image shape: %s", image.shape if hasattr(image, 'shape') else type(image))
@@ -178,10 +139,11 @@ class UltrasoundTableDetector:
         try:
             # Delegate to content extractor for table processing
             logger.debug("Delegating to content extractor for table processing")
-            structured_data = self.content_extractor.extract_table_content(image, bbox)
+           
+            structured_data = self.content_extractor.extract_table_content(image, bbox,True)
             
 
-            
+      
             return structured_data
             
         except Exception as e:
